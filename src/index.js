@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-
+import thunk from 'redux-thunk';
 import App from './components/app';
-import reducers from './reducers';
+import rootReducer from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
 
+const store = createStore(rootReducer, applyMiddleware(thunk)); 
+//const createStoreWithMiddleware = applyMiddleware()(createStore);
+store.subscribe(() => console.log('we', store.getState()));
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <App />
   </Provider>
   , document.querySelector('.container'));
