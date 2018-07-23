@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getFriends} from '../actions/friends';
-//import {addFriend} from '../actions';
 //import {removeFriend} from '../actions';
 
 class Friends extends Component {
@@ -17,11 +16,9 @@ class Friends extends Component {
 		return(
 			<div className="friends">
 				<h3>Friend List</h3>
-					<p>Logged In: {this.props.loggedIn.toString()}</p>
 					{
 						this.props.loadedFriends ?
 							<div>
-							<p>Friends Loaded: {this.props.loadedFriends.toString()}</p>
 							<ul>
 								{
 									this.props.friends.map(friend => {
@@ -36,7 +33,7 @@ class Friends extends Component {
 							
 							</div>
 						:
-							<p>Loading ...</p>
+							<p>...</p>
 					}	
 			</div>		
 		);
