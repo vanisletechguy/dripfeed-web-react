@@ -1,22 +1,33 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {login} from '../actions';
+import {registerUser} from '../actions';
 
 class Auth extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			userName: '',
-			password: '',
+			password: ''
 		};
 		this.handleUserChange = this.handleUserChange.bind(this);
 		this.handlePassChange = this.handlePassChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.register = this.register.bind(this);
+	}
+	register(event){
+		const userInfo = {
+			userName: '',
+			password: '',
+			email: ''
+		};
+		this.props.registerUser(userInfo);
 	}
 	render(){
 		if(!this.props.loggedIn){
 			return(
 				<div className="auth">
+					<button onClick={this.register}>Register</button>
 					<form onSubmit={this.handleSubmit}>
 						<h4>Login</h4>
 						<textarea value={this.state.userName} onChange={this.handleUserChange}/>
@@ -57,4 +68,4 @@ function mapStateToProps(state){
 		email: state.auth.email
 	};
 }
-export default connect(mapStateToProps, {login} )(Auth);
+export default connect(mapStateToProps, {login, registerUser} )(Auth);

@@ -4,9 +4,16 @@ export default function friends(state={}, action){
 	if(!state){state = {};}
 	switch (action.type) {
 		case RECIEVE_FRIENDS:
-			state = {
-				friends: action.friends,
-				loadedFriends: true
+			if(action.friends && action.friends[0]){
+				state = {
+					friends: action.friends,
+					loadedFriends: true
+				}
+			} else {
+				state = {
+					friends: action.friends,
+					loadedFriends: false
+				}
 			}
 			return state;	
 		default:

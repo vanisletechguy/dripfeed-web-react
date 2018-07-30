@@ -7,17 +7,17 @@ export function getFriends(userid, token){
 
 function fetchFriends(userid, token){
 	return function(dispatch) {
-		return fetchFriendsJSON(userid, token).then(json => dispatch(recieveFriends(json)));
+		return fetchFriendsJSON(userid, token).then(json => dispatch(
+			recieveFriends(json)));
 	}	
 }
 
-function fetchFriendsJSON(userid, token)
-{
+function fetchFriendsJSON(userid, token){
 	return fetch('http://localhost:3131/api/myfriends', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
-			'userid': 1,
+			'userid': userid,
 			'token': token 
 		}),
 	}).then(response => response.json());
@@ -28,5 +28,5 @@ function recieveFriends(json){
 	return{
 		type: RECIEVE_FRIENDS,
 		friends
-	}
+	};
 }

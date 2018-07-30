@@ -10,8 +10,7 @@ class Friends extends Component {
 	
 	render(){
 		if(this.props.loggedIn && !this.props.loadedFriends &&this.props.token){
-			console.log('getting friends with:', this.props.token);
-			this.props.getFriends(this.props.userId, this.props.token); //userid and token 
+			this.props.getFriends(this.props.userId, this.props.token); 
 		}
 		return(
 			<div className="friends">
@@ -19,18 +18,20 @@ class Friends extends Component {
 					{
 						this.props.loadedFriends ?
 							<div>
-							<ul>
-								{
-									this.props.friends.map(friend => {
-										return(
-											<li key={friend.iduser}>
-												{friend.firstName}	{friend.lastName} 
-											</li>
-										);
-									})		
-								}
-							</ul>
-							
+								<ul>
+									{
+										this.props.friends.map(friend => {
+											return(
+												<li key={friend.iduser}>
+													<div>
+														{friend.firstName}	{friend.lastName} 
+													</div>
+												</li>
+
+											);
+										})		
+									}
+								</ul>
 							</div>
 						:
 							<p>...</p>
@@ -41,7 +42,6 @@ class Friends extends Component {
 }
 
 function mapStateToProps(state){
-	console.log('friends state is', state);
 	if(!state.auth.loggedIn){return {loggedIn: false};}
 	return {
 		loggedIn: state.auth.loggedIn,
