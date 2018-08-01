@@ -1,6 +1,7 @@
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const RECIEVE_COMMENTS = 'RECIEVE_COMMENTS';
 export const POST_RESPONSE = 'POST_RESPONSE';
+export const COMMENT_RESPONSE = 'COMMENT_RESPONSE';
 
 export function getComments(userid, token, postId){
 	return fetchComments(userid, token, postId);
@@ -14,6 +15,7 @@ function fetchComments(userid, token, postId){
 }
 
 function fetchCommentsJSON(useid, token, postId){
+///
 	return fetch('http://localhost:3131/api/comments', {
 		method: 'get',
 		headers: new Headers({
@@ -26,6 +28,7 @@ function fetchCommentsJSON(useid, token, postId){
 }
 
 function recieveComments(json){
+////
 	var comments = json.comments;
 	return {
 		type: RECIEVE_COMMENTS,
@@ -34,24 +37,25 @@ function recieveComments(json){
 }
 
 ///////////////////////////////////////Submit Comment ////////////////
-export function submitComment(userId, token, postId){
-	return submit(userId, token, postId);
+export function submitComment(userId, token, postId, text){
+	return submit(userId, token, postId, text);
 }
-function submit(userId, token, post){
+function submit(userId, token, post, text){
 	return function(dispatch) {
-		return submitCommentJSON(userId, token, postId).then(json => dispatch(
+		return submitCommentJSON(userId, token, postId, text).then(json => dispatch(
 			submitResponse(json)));
 	}
 }
 
-function submitCommentJSON(userId, token, postId) {
+function submitCommentJSON(userId, token, postId, text) {
 	return fetch('http://localhost:3131/api/comments', {
 		method: 'put',
 		headers: new Headers({
 		'Content-Type': 'application/x-www-form-urlencoded',
 		'userid': userid,
 		'token': token,
-		'postId': postId
+		'postId': postId,
+		'text': text
 		})
 	});
 }
