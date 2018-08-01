@@ -27,12 +27,14 @@ class Auth extends Component {
 		if(!this.props.loggedIn){
 			return(
 				<div className="auth">
-					<button onClick={this.register}>Register</button>
 					<form onSubmit={this.handleSubmit}>
 						<h4>Login</h4>
 						<textarea value={this.state.userName} onChange={this.handleUserChange}/>
 						<textarea value={this.state.password} onChange={this.handlePassChange}/>
-						<input type="submit" value="Submit"/>
+						<div className="authButtons">
+							<button onClick={this.register}>Register</button>
+							<input type="submit" value="Submit"/>
+						</div>
 					</form>
 				</div>
 			);

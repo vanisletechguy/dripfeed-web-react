@@ -1,15 +1,84 @@
-.auth{
-	background-color: grey;
+body {
+	background: radial-gradient(#B3D3B1, #7DB293);
 }
-.friends{
-	background-color: grey;
-}
-.posts{
-	background-color: grey;
-}
-.postItem{
-	background-color: red;
-}
-.postGroup{
 
+.auth{
+	background-color: #A2C1DA;
+	color: white;
+}
+
+.friends{
+	background-color: #A2C1DA;
+	color: white;
+}
+
+.posts{
+
+	background-color: #F2F09D;
+	color: black;
+}
+
+.postItem{
+	background-color: #A2C1DA;
+	display: block;
+	height: 95%;
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	position: relative;
+}
+
+.postImage{
+	top: 10px;
+	height: 250px;
+	margin: auto auto;
+	position: relative;
+	width: 95%;
+	margin-bottom: 15px;
+}
+
+img{
+	max-width: 90%;
+	max-height: 100%;
+	height: 100%;
+	width: auto;
+	position: relative;
+	display: block;
+	margin: auto auto;
+}
+
+.postText{
+	width: 95%;
+	margin: auto auto;
+}
+
+.comments{
+	width: 95%;
+	margin: auto auto;
+	color: black;
+}
+
+.postGroup{
+	background-color: #F2F09D;
+}
+
+.authButtons{
+	display: inline-block;
+	color: black;
+}
+
+.something{
+	background-color: #A2C1DA;
+}
+
+.leftNav{
+
+}
+
+.well{
+	border-radius: 25px;
+	border: none;
+	background: radial-gradient(#A2C1DA, #7DB293);
+	box-shadow: 2px 2px 4px 5px #7DB293;
 }

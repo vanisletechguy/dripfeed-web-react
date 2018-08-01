@@ -9,7 +9,7 @@ export default class App extends Component {
     return (
 			<div className="col-md-12">
 				<h2>Drip Feed</h2><br/> 
-				<div className="col-md-3 well well-sm">
+				<div className="col-md-3 well well-sm leftNav">
 					<div>
 						<Auth />
 					</div>
@@ -20,7 +20,7 @@ export default class App extends Component {
 						<Friends />
 					</div>
 				</div>
-				<div className="col-md-5 well well-sm">
+				<div className="col-md-5 well well-sm posts">
 					<Posts />
 				</div>
 			</div>

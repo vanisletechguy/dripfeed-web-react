@@ -95,18 +95,21 @@ class Posts extends Component {
 								this.props.posts.map(post => {
 									return(
 										<div key={post.postid} className="postItem">
-											<h4>{post.title}</h4>
-											<p>{post.description}</p>
 											{
 												post &&	post.imageURI ?
-													<div> <img src={post.imageURI}/> </div>
+													<div className="postImage well well-sm"> <img src={post.imageURI}/> </div>
 													:
 													<div></div>
 											}
-											<div className="comments">
+											<div className="well well-sm postText">
+												<h4>{post.title}</h4>
+												<p>{post.description}</p>
+											</div>
+											<div className="well well-sm comments">
 												<h4>Comments</h4>
 												<Comments/>
 											</div>
+											<p><br/></p>
 										</div>
 									);
 								})
