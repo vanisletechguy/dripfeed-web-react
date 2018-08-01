@@ -33,23 +33,16 @@ class Posts extends Component {
 	}
 
 	fileChangedHandler(event){
-		console.log('the pic is...: ', event.target.files[0]);
 		this.setState({newPostPic: event.target.files[0]})
-		///get signed url and upload pic here
-
-
-
 		this.props.uploadPic(event.target.files[0], this.props.token);
-		//pic should now be in s3 and url in props
 	}
 
 	handleSubmit(event){
 		event.preventDefault();
 		//check props to see if pic is uploaded before submiting
-		/////pic should already be in s3, save only url with post here
-		var post = {title: this.state.newTitle, description: this.state.newDescription, 
+		var post = {title: this.state.newTitle, 
+			description: this.state.newDescription, 
 			image: this.props.imageURL};
-		console.log('the post is: ', post);
 		this.props.submitPost(this.props.userId, this.props.token, post);
 		this.setState({newPost: false});
 	}
@@ -60,7 +53,7 @@ class Posts extends Component {
 		}
 		if(this.props.posts && this.props.posts[0]) {
 			this.props.posts.map(post => {
-				getPicture(this.props.userId, this.props.token, post.imageURI); ///screwy
+				///get Comments here
 			});
 		}
 		return(
@@ -71,7 +64,8 @@ class Posts extends Component {
 							<h3>making a new post</h3>
 							<form onSubmit={this.handleSubmit}>
 								<h4>Title:</h4>
-								<textarea value={this.state.newTitle} onChange={this.titleChange}/>
+								<textarea value={this.state.newTitle} 
+									onChange={this.titleChange}/>
 								<textarea value={this.state.newDescription} 
 									onChange={this.descriptionChange}/>
 								<input type="file" onChange={this.fileChangedHandler}/>
@@ -81,7 +75,6 @@ class Posts extends Component {
 					:
 						<div></div>
 				}
-				<h3>Posts</h3> 
 				{
 					this.props.loggedIn ? 
 						<button onClick={this.createPost}>New Post</button>	
@@ -97,7 +90,9 @@ class Posts extends Component {
 										<div key={post.postid} className="postItem">
 											{
 												post &&	post.imageURI ?
-													<div className="postImage well well-sm"> <img src={post.imageURI}/> </div>
+													<div className="postImage well well-sm"> 
+														<img src={post.imageURI}/> 
+													</div>
 													:
 													<div></div>
 											}
@@ -124,19 +119,19 @@ class Posts extends Component {
 }
 
 function mapStateToProps(state){
-	if(!state.auth && !state.posts && !state.posts.loadedPosts && !state.auth.token){
+	if(!state.auth && !state.posts && !state.posts.loadedPosts && 
+		!state.auth.token){
 		return {loggedIn: false, loadedPosts: false};}
 	return {
 		loggedIn: state.auth.loggedIn,
 		userId: state.auth.userId,
 		posts: state.posts.posts,
-//		postImages: state.posts.images,
 		loadedPosts: state.posts.loadedPosts,
-//		loadedImages: state.posts.loadedImages,
 		postSubmitSuccess: state.posts.postSubmitSuccess,
 		token: state.auth.token,
 		picUpload: state.posts.picUpload,
 		imageURL: state.posts.imageURL
 	}
 }
-export default connect(mapStateToProps,{getPosts,submitPost, getPicture, uploadPic})(Posts);
+export default connect(mapStateToProps,{getPosts,submitPost, getPicture, 
+	uploadPic})(Posts);

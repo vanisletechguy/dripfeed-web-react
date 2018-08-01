@@ -29,8 +29,10 @@ class Auth extends Component {
 				<div className="auth">
 					<form onSubmit={this.handleSubmit}>
 						<h4>Login</h4>
-						<textarea value={this.state.userName} onChange={this.handleUserChange}/>
-						<textarea value={this.state.password} onChange={this.handlePassChange}/>
+						<textarea value={this.state.userName} 
+							onChange={this.handleUserChange}/>
+						<textarea value={this.state.password} 
+							onChange={this.handlePassChange}/>
 						<div className="authButtons">
 							<button onClick={this.register}>Register</button>
 							<input type="submit" value="Submit"/>
@@ -48,7 +50,8 @@ class Auth extends Component {
 	}
 
 	handleSubmit(event){
-		const payload = {userName: this.state.userName, password: this.state.password};
+		const payload = 
+			{userName: this.state.userName, password: this.state.password};
 		this.props.login(payload);
 		event.preventDefault();
 	}
