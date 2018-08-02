@@ -24,12 +24,13 @@ class Comments extends Component{
 			this.props.postId, this.state.newComment);
 	}
 	render(){
+		console.log('props comments', this.props.comments.comments);
 		return(
 			<div>
 				{
 					this.state.makingComment ?
 						<div>
-							<h3>Submit Your Comment</h3>
+							<h4>Submit Your Comment</h4>
 							<form onSubmit={this.submitComment}>
 								<textarea value={this.state.newComment} 
 									onChange={this.commentChanged}/>
@@ -42,8 +43,24 @@ class Comments extends Component{
 				<button onClick={this.makeComment}>New Comment</button>	
 				<ul>
 					{
-						<p>this is the ID: {this.props.postId}</p>
-						//map comments
+						this.props.comments.comments[0] ?
+							this.props.comments.comments.map(comments => {
+								return comments.map(comment => {
+									if(comment.postid === this.props.postId){
+										return (
+											<div key={comment.commentid}>
+												<li>
+													<p>PostId: {comment.postid} UserId: {comment.userid} </p>	
+													<p>Text: {comment.text}</p>	
+												</li>
+											</div>
+										);
+									}
+								})
+
+							})
+						:
+							<p></p>
 					}
 				</ul>
 			</div>
@@ -59,7 +76,7 @@ function mapStateToProps(state){
 	return {
 		userId: 		state.auth.userId,
 		token: 			state.auth.token,
-		comments:		state.comments.comments,
+		comments: 	state.comments
 	};	
 }
 export default connect(mapStateToProps, {getComments, submitComment})(Comments);

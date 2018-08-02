@@ -14,7 +14,7 @@ function fetchComments(userid, token, postId){
 	}
 }
 
-function fetchCommentsJSON(useid, token, postId){
+function fetchCommentsJSON(userid, token, postId){
 ///
 	return fetch('http://localhost:3131/api/comments', {
 		method: 'get',
@@ -28,7 +28,6 @@ function fetchCommentsJSON(useid, token, postId){
 }
 
 function recieveComments(json){
-////
 	var comments = json.comments;
 	return {
 		type: RECIEVE_COMMENTS,
@@ -40,7 +39,7 @@ function recieveComments(json){
 export function submitComment(userId, token, postId, text){
 	return submit(userId, token, postId, text);
 }
-function submit(userId, token, post, text){
+function submit(userId, token, postId, text){
 	return function(dispatch) {
 		return submitCommentJSON(userId, token, postId, text).then(json => dispatch(
 			submitResponse(json)));
@@ -52,7 +51,7 @@ function submitCommentJSON(userId, token, postId, text) {
 		method: 'put',
 		headers: new Headers({
 		'Content-Type': 'application/x-www-form-urlencoded',
-		'userid': userid,
+		'userid': userId,
 		'token': token,
 		'postId': postId,
 		'text': text

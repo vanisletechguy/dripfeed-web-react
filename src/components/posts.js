@@ -4,6 +4,7 @@ import {getPosts} from '../actions/posts';
 import {submitPost, getPicture} from '../actions/posts';
 import Comments from './comment';
 import {uploadPic} from '../actions/posts';
+import {getComments} from '../actions/comments';
 
 class Posts extends Component {
 	constructor(props){
@@ -18,6 +19,7 @@ class Posts extends Component {
 		this.state.newDescription = '';
 		this.state.newPostPic;
 		this.state.newPicSignedURL = '';
+		this.loadedPosts = false;
 	}
 
 	createPost(){
@@ -48,13 +50,17 @@ class Posts extends Component {
 	}
 	
 	render(){
-		if(this.props.loggedIn && !this.props.loadedPosts){
+		if(this.props.loggedIn && !this.props.loadedPosts && !this.props.loadedPosts){
+			console.log('ohooo');
 			this.props.getPosts(this.props.userId, this.props.token); //should call once? 
+			//this.loadedPosts = true;
 		}
-		if(this.props.posts && this.props.posts[0]) {
+		if(this.props.posts && this.props.posts[0] && !this.loadedComments) {
 			this.props.posts.map(post => {
 				///get Comments here
+				this.props.getComments(this.props.userId, this.props.token, post.postid );
 			});
+			this.loadedComments = true;
 		}
 		return(
 			<div className="posts">
@@ -102,7 +108,7 @@ class Posts extends Component {
 											</div>
 											<div className="well well-sm comments">
 												<h4>Comments</h4>
-												<Comments/>
+												<Comments postId={post.postid}/>
 											</div>
 											<p><br/></p>
 										</div>
@@ -119,7 +125,7 @@ class Posts extends Component {
 }
 
 function mapStateToProps(state){
-	if(!state.auth && !state.posts && !state.posts.loadedPosts && 
+	if(!state.auth && !state.posts.posts && !state.posts.loadedPosts && 
 		!state.auth.token){
 		return {loggedIn: false, loadedPosts: false};}
 	return {
@@ -134,4 +140,4 @@ function mapStateToProps(state){
 	}
 }
 export default connect(mapStateToProps,{getPosts,submitPost, getPicture, 
-	uploadPic})(Posts);
+	uploadPic, getComments})(Posts);

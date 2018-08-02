@@ -2,12 +2,21 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getFriends} from '../actions/friends';
 //import {removeFriend} from '../actions';
+import {getPosts} from '../actions/posts';
+import {clearPosts} from '../actions/posts';
 
 class Friends extends Component {
 	constructor(props){
 		super(props);
+		this.selectFriend = this.selectFriend.bind(this);
 	}
 	
+	selectFriend(event, friend){
+		//getPosts(friendid)	
+		console.log('u clicked on id:', friend.iduser);
+		this.props.clearPosts();
+		this.props.getPosts(friend.iduser, this.props.token);
+	}
 	render(){
 		if(this.props.loggedIn && !this.props.loadedFriends &&this.props.token){
 			this.props.getFriends(this.props.userId, this.props.token); 
@@ -22,7 +31,7 @@ class Friends extends Component {
 									{
 										this.props.friends.map(friend => {
 											return(
-												<li key={friend.iduser}>
+												<li key={friend.iduser} onClick={(e) => this.selectFriend(e, friend)}>
 													<div>
 														{friend.firstName}	{friend.lastName} 
 													</div>
@@ -52,4 +61,4 @@ function mapStateToProps(state){
 	};
 }
 
-export default connect(mapStateToProps, {getFriends})(Friends);
+export default connect(mapStateToProps, {getFriends, getPosts, clearPosts})(Friends);

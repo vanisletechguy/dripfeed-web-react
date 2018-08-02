@@ -5,6 +5,7 @@ export const PIC_RESPONSE = 'PIC_RESPONSE';
 export const S3_RESPONSE = 'S3_RESPONSE';
 export const S3_SUCCESS = 'S3_SUCCESS';
 export const S3_FAIL = 'S3_FAIL';
+export const CLEAR_POSTS = 'CLEAR_POSTS';
 ///////////////////////////////////////Get Posts/////////////////////
 export function getPosts(userId, token){
 	return fetchPosts(userId, token);
@@ -33,6 +34,13 @@ function recievePosts(json, userId, token){
 		};
 }
 
+///////////////////////////////////////Clear Posts/////////////////////
+export function clearPosts(){
+	return {
+		type: CLEAR_POSTS
+	};
+	
+}
 ///////////////////////////////////////Submit Post/////////////////////
 export function submitPost(userId, token, post){
 	return submit(userId, token, post);
