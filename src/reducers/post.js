@@ -15,7 +15,7 @@ export default function posts(state={}, action){
         });
 		case CLEAR_POSTS:
 			state.posts = [];
-			state.loadedPosts = false;
+			state.loadedPosts = true;
 			return state;
 		case POST_RESPONSE:
 			if(action.response.ok == true) {

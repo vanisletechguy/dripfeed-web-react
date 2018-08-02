@@ -20,6 +20,7 @@ class Posts extends Component {
 		this.state.newPostPic;
 		this.state.newPicSignedURL = '';
 		this.loadedPosts = false;
+		this.viewingUser = 0;
 	}
 
 	createPost(){
@@ -51,6 +52,7 @@ class Posts extends Component {
 	
 	render(){
 		if(this.props.loggedIn && !this.props.loadedPosts && !this.props.loadedPosts){
+			console.log('aaaaaaaaaaaaaaaa');
 			//this.props.viewingUser instead
 			this.props.getPosts(this.props.userId, this.props.token); //should call once? 
 			//this.loadedPosts = true;

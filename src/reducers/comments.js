@@ -1,5 +1,6 @@
 import {RECIEVE_COMMENTS, COMMENT_RESPONSE} from '../actions/comments';
 import {RECIEVE_POSTS} from '../actions/posts';
+import {CLEAR_COMMENTS} from '../actions/comments';
 
 export default function comments(state={}, action){
 	switch(action.type){
@@ -19,6 +20,8 @@ export default function comments(state={}, action){
 				return {...state, loadedComments: true};
 			} 
 			return state;
+		case CLEAR_COMMENTS:
+				return {...state, loadedComments: false, comments: []};
 		case COMMENT_RESPONSE:
 			if(action.response.ok == true){
 				state.commentSubmitSuccess = true;

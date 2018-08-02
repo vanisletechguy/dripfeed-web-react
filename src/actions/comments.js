@@ -2,6 +2,7 @@ export const GET_COMMENTS = 'GET_COMMENTS';
 export const RECIEVE_COMMENTS = 'RECIEVE_COMMENTS';
 export const POST_RESPONSE = 'POST_RESPONSE';
 export const COMMENT_RESPONSE = 'COMMENT_RESPONSE';
+export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
 
 export function getComments(userid, token, postId){
 	return fetchComments(userid, token, postId);
@@ -33,6 +34,12 @@ function recieveComments(json){
 		type: RECIEVE_COMMENTS,
 		comments
 	};
+}
+
+export function clearComments(){
+	return {
+		type: CLEAR_COMMENTS
+	}
 }
 
 ///////////////////////////////////////Submit Comment ////////////////

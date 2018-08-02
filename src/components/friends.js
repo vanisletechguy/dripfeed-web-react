@@ -4,6 +4,7 @@ import {getFriends} from '../actions/friends';
 //import {removeFriend} from '../actions';
 import {getPosts} from '../actions/posts';
 import {clearPosts} from '../actions/posts';
+import {clearComments} from '../actions/comments';
 
 class Friends extends Component {
 	constructor(props){
@@ -14,6 +15,7 @@ class Friends extends Component {
 	selectFriend(event, friend){
 		console.log('u clicked on id:', friend.iduser);
 		this.props.clearPosts();
+		this.props.clearComments();
 		this.props.getPosts(friend.iduser, this.props.token);
 	}
 	render(){
@@ -60,4 +62,4 @@ function mapStateToProps(state){
 	};
 }
 
-export default connect(mapStateToProps, {getFriends, getPosts, clearPosts})(Friends);
+export default connect(mapStateToProps, {getFriends, getPosts, clearPosts, clearComments})(Friends);
