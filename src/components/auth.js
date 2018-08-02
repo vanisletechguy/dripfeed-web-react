@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {login} from '../actions';
 import {registerUser} from '../actions';
+import {getPosts} from '../actions/posts';
 
 class Auth extends Component {
 	constructor(props) {
@@ -14,6 +15,7 @@ class Auth extends Component {
 		this.handlePassChange = this.handlePassChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.register = this.register.bind(this);
+		this.myFeed = this.myFeed.bind(this);
 	}
 	register(event){
 		const userInfo = {
@@ -22,6 +24,9 @@ class Auth extends Component {
 			email: ''
 		};
 		this.props.registerUser(userInfo);
+	}
+	myFeed(event){
+		this.props.getPosts(this.props.userId, this.props.token);
 	}
 	render(){
 		if(!this.props.loggedIn){
@@ -44,6 +49,7 @@ class Auth extends Component {
 			return(
 				<div className="auth">
 					<h4>Logged In as: {this.props.email}</h4>
+					<h4 onClick={this.myFeed}>My Feed</h4>
 				</div>
 			);
 		}
@@ -70,7 +76,8 @@ function mapStateToProps(state){
 	return{
 		token: state.auth.token,
 		loggedIn: state.auth.loggedIn,
-		email: state.auth.email
+		email: state.auth.email,
+		userId: state.auth.userId
 	};
 }
-export default connect(mapStateToProps, {login, registerUser} )(Auth);
+export default connect(mapStateToProps, {login, registerUser,getPosts} )(Auth);

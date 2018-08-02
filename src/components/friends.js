@@ -12,7 +12,6 @@ class Friends extends Component {
 	}
 	
 	selectFriend(event, friend){
-		//getPosts(friendid)	
 		console.log('u clicked on id:', friend.iduser);
 		this.props.clearPosts();
 		this.props.getPosts(friend.iduser, this.props.token);

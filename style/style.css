@@ -2,6 +2,12 @@ body {
 	background: radial-gradient(#B3D3B1, #7DB293);
 }
 
+.appTitle{
+	margin: auto;
+	width: 100%;
+	background-color: #A2C1DA;
+	text-align: center;
+}
 .auth{
 	background-color: #A2C1DA;
 	color: white;
@@ -13,7 +19,6 @@ body {
 }
 
 .posts{
-
 	background-color: #F2F09D;
 	color: black;
 }

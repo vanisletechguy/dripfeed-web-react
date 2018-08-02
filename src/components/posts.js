@@ -51,7 +51,6 @@ class Posts extends Component {
 	
 	render(){
 		if(this.props.loggedIn && !this.props.loadedPosts && !this.props.loadedPosts){
-			console.log('ohooo');
 			//this.props.viewingUser instead
 			this.props.getPosts(this.props.userId, this.props.token); //should call once? 
 			//this.loadedPosts = true;
@@ -59,7 +58,6 @@ class Posts extends Component {
 		if(this.props.posts && this.props.posts[0] && !this.props.loadedComments) {//should call once? 
 			this.props.posts.map(post => {
 				///get Comments here
-				console.log('getting new comments');
 				this.props.getComments(this.props.userId, this.props.token, post.postid );
 			});
 			this.loadedComments = true;
