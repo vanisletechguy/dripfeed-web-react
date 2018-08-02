@@ -52,12 +52,14 @@ class Posts extends Component {
 	render(){
 		if(this.props.loggedIn && !this.props.loadedPosts && !this.props.loadedPosts){
 			console.log('ohooo');
+			//this.props.viewingUser instead
 			this.props.getPosts(this.props.userId, this.props.token); //should call once? 
 			//this.loadedPosts = true;
 		}
-		if(this.props.posts && this.props.posts[0] && !this.loadedComments) {
+		if(this.props.posts && this.props.posts[0] && !this.props.loadedComments) {//should call once? 
 			this.props.posts.map(post => {
 				///get Comments here
+				console.log('getting new comments');
 				this.props.getComments(this.props.userId, this.props.token, post.postid );
 			});
 			this.loadedComments = true;
@@ -136,7 +138,8 @@ function mapStateToProps(state){
 		postSubmitSuccess: state.posts.postSubmitSuccess,
 		token: state.auth.token,
 		picUpload: state.posts.picUpload,
-		imageURL: state.posts.imageURL
+		imageURL: state.posts.imageURL,
+		loadedComments: state.comments.loadedComments
 	}
 }
 export default connect(mapStateToProps,{getPosts,submitPost, getPicture, 

@@ -24,7 +24,6 @@ class Comments extends Component{
 			this.props.postId, this.state.newComment);
 	}
 	render(){
-		console.log('props comments', this.props.comments.comments);
 		return(
 			<div>
 				{
@@ -43,7 +42,8 @@ class Comments extends Component{
 				<button onClick={this.makeComment}>New Comment</button>	
 				<ul>
 					{
-						this.props.comments.comments[0] ?
+						this.props.loadedComments && this.props.comments && 
+							this.props.comments.comments && this.props.comments.comments[0] ?
 							this.props.comments.comments.map(comments => {
 								return comments.map(comment => {
 									if(comment.postid === this.props.postId){
@@ -76,7 +76,8 @@ function mapStateToProps(state){
 	return {
 		userId: 		state.auth.userId,
 		token: 			state.auth.token,
-		comments: 	state.comments
+		comments: 	state.comments,
+		loadedComments: state.comments.loadedComments
 	};	
 }
 export default connect(mapStateToProps, {getComments, submitComment})(Comments);

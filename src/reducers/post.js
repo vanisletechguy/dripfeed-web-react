@@ -8,30 +8,11 @@ import {CLEAR_POSTS} from '../actions/posts';
 export default function posts(state={}, action){
 	switch (action.type) {
 		case RECIEVE_POSTS:
-		//	if(action.posts && action.posts[0]){
-//				state.posts = action.posts;
-//				state.loadedPosts = true;
-
-
-				console.log(action.posts);
 	      return( 
         {
           posts: action.posts,
           loadedPosts: true
         });
-      
-	
-	
-	
-
-
-		////} else {
-			//state = {
-			//	posts: action.posts,
-			//	loadedPosts: true
-			//	}
-			//}
-//			return state;	
 		case CLEAR_POSTS:
 			state.posts = [];
 			state.loadedPosts = false;
