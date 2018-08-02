@@ -1,4 +1,5 @@
 import {RECIEVE_FRIENDS} from '../actions/friends';
+import {SEARCH_RESULT} from '../actions/friends';
 
 export default function friends(state={}, action){
 	if(!state){state = {};}
@@ -16,6 +17,14 @@ export default function friends(state={}, action){
 				}
 			}
 			return state;	
+
+		case SEARCH_RESULT:
+			console.log(action.result);
+			if(action.result.friends[0]){ ////allow multiple
+				return {...state, newFriend: action.result.friends[0]}
+			}
+			return state;
+			
 		default:
 			return state;
 	}
