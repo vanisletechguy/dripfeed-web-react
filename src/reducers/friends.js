@@ -1,6 +1,7 @@
 import {RECIEVE_FRIENDS} from '../actions/friends';
 import {SEARCH_RESULT} from '../actions/friends';
 import {UNFRIEND_RESPONSE} from '../actions/friends';
+import {ADD_FRIEND_RESPONSE} from '../actions/friends';
 
 export default function friends(state={}, action){
 	if(!state){state = {};}
@@ -18,6 +19,11 @@ export default function friends(state={}, action){
 				}
 			}
 			return state;	
+		case ADD_FRIEND_RESPONSE:
+			if(action.response.sucess){
+				return {...state, friends: action.response.friend}
+			}	
+			return state;
 		case UNFRIEND_RESPONSE:
 		//remove friend from list if success
 			console.log('unfriend response reducer');
@@ -28,7 +34,6 @@ export default function friends(state={}, action){
 				console.log('made it to return');
 				return {...state, friends: friendList}
 			}
-
 			return state;
 		case SEARCH_RESULT:
 			console.log(action.result);

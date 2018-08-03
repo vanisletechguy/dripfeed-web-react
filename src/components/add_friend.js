@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {searchForUser} from '../actions/friends';
-//import {addFriend} from '../actions/friends';
+import {addFriend} from '../actions/friends';
 
 class AddFriend extends Component {
 	constructor(props){
@@ -16,7 +16,9 @@ class AddFriend extends Component {
 		this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
 		this.searchFriend = this.searchFriend.bind(this);
 		this.resultIsFriend = this.resultIsFriend.bind(this);
+		this.addToFriends = this.addToFriends.bind(this);
 	}
+
 	addFriend(event){
 		this.setState({addingFriend: true});
 	}
@@ -37,10 +39,17 @@ class AddFriend extends Component {
 
 	resultIsFriend(user){
 		var isFriend = false;	
+		console.log('user', user);
+		console.log('friendlist', this.props.friendList);
 		this.props.friendsList.map(friend => {
-			if (friend.userId === user.userId) isFriend = true; 
+			if (friend.iduser === user.iduser) isFriend = true; 
 		})
 		return isFriend;
+	}
+
+	addToFriends(event, newFriend){
+		const friendId = newFriend.iduser;
+		this.props.addFriend(this.props.userId, this.props.token, friendId);
 	}
 
 	render(){
@@ -69,7 +78,7 @@ class AddFriend extends Component {
 											</div>
 										:
 											<div className="searchResult">
-												<div>ADD</div>
+												<div onClick={(e) => this.addToFriends(e,this.props.newFriend)}>ADD</div>
 											</div>
 									}								
 										</div>
@@ -102,5 +111,5 @@ function mapStateToProps(state){
 	}
 }
 
-export default connect(mapStateToProps, {searchForUser})(AddFriend);
+export default connect(mapStateToProps, {searchForUser, addFriend})(AddFriend);
 
