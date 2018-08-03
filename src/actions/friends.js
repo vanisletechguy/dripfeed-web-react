@@ -134,6 +134,6 @@ function addFriendResponse(json){
 	var response = json;
 	return {
 		type: ADD_FRIEND_RESPONSE,
-		response
+		response: response
 	}
 }

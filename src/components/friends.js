@@ -29,6 +29,7 @@ class Friends extends Component {
 	render(){
 		if(this.props.loggedIn && !this.props.loadedFriends &&this.props.token){
 			this.props.getFriends(this.props.userId, this.props.token); 
+			console.log('sdfsdfsdfsdf');
 		}
 		return(
 			<div className="friends">
@@ -40,13 +41,16 @@ class Friends extends Component {
 									{
 										this.props.friends.map(friend => {
 											return(
-												<li key={friend.iduser} onClick={(e) => this.selectFriend(e, friend)}>
+												<li key={friend.iduser} >
 													<div className="friendListItem">
-														{friend.firstName}	{friend.lastName} 
-														<div onClick={(e) => {this.removeFriend(e, friend)}} className="removeFriend">[Remove]</div>
+														<div onClick={(e) => this.selectFriend(e, friend)}>
+															{friend.firstName}	{friend.lastName}
+														</div> 
+														<div onClick={(e) => {this.removeFriend(e, friend)}} 
+															className="removeFriend">[Remove]
+														</div>
 													</div>
 												</li>
-
 											);
 										})		
 									}

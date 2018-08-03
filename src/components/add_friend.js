@@ -41,9 +41,11 @@ class AddFriend extends Component {
 		var isFriend = false;	
 		console.log('user', user);
 		console.log('friendlist', this.props.friendList);
-		this.props.friendsList.map(friend => {
-			if (friend.iduser === user.iduser) isFriend = true; 
-		})
+		if(this.props.friendList){
+			this.props.friendsList.map(friend => {
+				if (friend.iduser === user.iduser) isFriend = true; 
+			})
+		}
 		return isFriend;
 	}
 

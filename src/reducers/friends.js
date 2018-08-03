@@ -15,24 +15,26 @@ export default function friends(state={}, action){
 			} else {
 				state = {
 					friends: action.friends,
-					loadedFriends: false
+					loadedFriends: true
 				}
 			}
 			return state;	
 		case ADD_FRIEND_RESPONSE:
-			if(action.response.sucess){
-				return {...state, friends: action.response.friend}
+			console.log('no succes?', action);
+			if(action.response.success){
+				console.log('add friend success', action.response);
+				return {...state, friends: action.response.friends}
 			}	
 			return state;
 		case UNFRIEND_RESPONSE:
 		//remove friend from list if success
-			console.log('unfriend response reducer');
-			if(action.response.sucess) {
+			console.log('unfriend response reducer', action.response);
+			if(action.response.success) {
 				//remove action.response.friendId
 				var friendList = state.friends;
-				friendList.filter(friend => friend.userId != action.response.friendId);
+				//friendList.filter(friend => friend.iduser != action.response.friendId);
 				console.log('made it to return');
-				return {...state, friends: friendList}
+				return {...state, friends: action.response.friends}
 			}
 			return state;
 		case SEARCH_RESULT:
