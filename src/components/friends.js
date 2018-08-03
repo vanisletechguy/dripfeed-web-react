@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getFriends} from '../actions/friends';
-//import {removeFriend} from '../actions';
+import {unFriend} from '../actions/friends';
 import {getPosts} from '../actions/posts';
 import {clearPosts} from '../actions/posts';
 import {clearComments} from '../actions/comments';
@@ -10,6 +10,7 @@ class Friends extends Component {
 	constructor(props){
 		super(props);
 		this.selectFriend = this.selectFriend.bind(this);
+		this.removeFriend = this.removeFriend.bind(this);
 	}
 	
 	selectFriend(event, friend){
@@ -18,6 +19,13 @@ class Friends extends Component {
 		this.props.clearComments();
 		this.props.getPosts(friend.iduser, this.props.token);
 	}
+
+	removeFriend(event, friend){
+		console.log('friend is', friend);
+		this.props.unFriend(this.props.userId, this.props.token, friend.iduser)
+
+	}
+
 	render(){
 		if(this.props.loggedIn && !this.props.loadedFriends &&this.props.token){
 			this.props.getFriends(this.props.userId, this.props.token); 
@@ -28,13 +36,14 @@ class Friends extends Component {
 					{
 						this.props.loadedFriends ?
 							<div>
-								<ul>
+								<ul className="list-unstyled">
 									{
 										this.props.friends.map(friend => {
 											return(
 												<li key={friend.iduser} onClick={(e) => this.selectFriend(e, friend)}>
-													<div>
+													<div className="friendListItem">
 														{friend.firstName}	{friend.lastName} 
+														<div onClick={(e) => {this.removeFriend(e, friend)}} className="removeFriend">[Remove]</div>
 													</div>
 												</li>
 
@@ -62,4 +71,4 @@ function mapStateToProps(state){
 	};
 }
 
-export default connect(mapStateToProps, {getFriends, getPosts, clearPosts, clearComments})(Friends);
+export default connect(mapStateToProps, {getFriends, getPosts, clearPosts, clearComments, unFriend})(Friends);

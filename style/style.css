@@ -18,6 +18,21 @@ body {
 	color: white;
 }
 
+.friendListItem{
+	background-color: #B3D3B1;
+}
+
+.removeFriend{
+	display: inline;
+	float: right;
+}
+
+.searchResult{
+	display: inline;
+	float: right;
+	background-color: #A2C1DA;
+}
+
 .posts{
 	background-color: #F2F09D;
 	color: black;

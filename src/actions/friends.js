@@ -1,7 +1,9 @@
 export const GET_FRIENDS = 'GET_FRIENDS';
 export const RECIEVE_FRIENDS = 'RECIEVE_FRIENDS';
 export const SEARCH_RESULT = 'SEARCH_RESULT';
+export const UNFRIEND_RESPONSE = 'UNFRIEND_RESPONSE';
 
+////////////////////////////GET FRIENDS LIST/////////
 export function getFriends(userid, token){
 	return fetchFriends(userid, token);
 }	
@@ -46,7 +48,6 @@ function fetchUser(userid, token, firstName, lastName){
 }
 
 function fetchUserJSON(userid, token, firstName, lastName){
-	
 	console.log('last name result: ', lastName);	
 	return fetch('http://localhost:3131/api/search', {
 		method: 'get',
@@ -66,5 +67,41 @@ function searchResult(json){
 	return{
 		type: SEARCH_RESULT,
 		result
+	}
+}
+
+
+///////////////////////////////////REMOVE A FRIEND////////////////////////
+export function unFriend(userid, token, friend){
+	console.log('asdfa', friend);
+	return unfriendRequest(userid, token, friend);
+}
+
+function unfriendRequest(userid, token,friend){
+	return function(dispatch){
+		return unfriendRequestJSON(userid, token, friend).then(json => dispatch(
+			unfriendResponse(json)));
+	}
+}
+
+function unfriendRequestJSON(userid, token, friend){
+	console.log('23f2f', friend);
+	return fetch('http://localhost:3131/api/unfriend', {
+		method: 'get',
+		headers: new Headers({
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'userid': userid,
+			'token': token,
+			'friendid': friend,
+		}),
+	}).then(response => response.json());
+}
+
+function unfriendResponse(json){
+	console.log('af24f4');
+	var response = json;
+	return {
+		type: UNFRIEND_RESPONSE,
+		response
 	}
 }

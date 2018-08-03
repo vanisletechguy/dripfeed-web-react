@@ -15,6 +15,7 @@ class AddFriend extends Component {
 		this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
 		this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
 		this.searchFriend = this.searchFriend.bind(this);
+		this.resultIsFriend = this.resultIsFriend.bind(this);
 	}
 	addFriend(event){
 		this.setState({addingFriend: true});
@@ -33,6 +34,15 @@ class AddFriend extends Component {
 		this.props.searchForUser(this.props.userId, this.props.token, this.state.firstName, this.state.lastName);
 		event.preventDefault();
 	}
+
+	resultIsFriend(user){
+		var isFriend = false;	
+		this.props.friendsList.map(friend => {
+			if (friend.userId === user.userId) isFriend = true; 
+		})
+		return isFriend;
+	}
+
 	render(){
 		if(this.props.loggedIn && this.props.token){
 			return(
@@ -50,7 +60,19 @@ class AddFriend extends Component {
 							this.props.newFriend ?
 								<div>
 									<h4>Search Result</h4>
-									<p>{this.props.newFriend.firstName}{this.props.newFriend.lastName}</p>
+									<div >{this.props.newFriend.firstName}{this.props.newFriend.lastName}
+									{
+										//if newFriend is already friend show Friends instead of Add
+										this.resultIsFriend(this.props.newFriend) ?
+											<div className="searchResult">
+												<div>FRIENDS</div>
+											</div>
+										:
+											<div className="searchResult">
+												<div>ADD</div>
+											</div>
+									}								
+										</div>
 								</div>
 							:
 								<div></div>
@@ -75,8 +97,10 @@ function mapStateToProps(state){
 		loggedIn: state.auth.loggedIn,
 		token: state.auth.token,
 		userId: state.auth.userId,
-		newFriend: state.friends.newFriend
+		newFriend: state.friends.newFriend,
+		friendsList: state.friends.friends
 	}
 }
 
 export default connect(mapStateToProps, {searchForUser})(AddFriend);
+

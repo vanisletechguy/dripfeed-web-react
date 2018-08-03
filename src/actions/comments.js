@@ -16,7 +16,6 @@ function fetchComments(userid, token, postId){
 }
 
 function fetchCommentsJSON(userid, token, postId){
-///
 	return fetch('http://localhost:3131/api/comments', {
 		method: 'get',
 		headers: new Headers({
