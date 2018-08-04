@@ -42,7 +42,7 @@ class Posts extends Component {
 
 	handleSubmit(event){
 		event.preventDefault();
-		//check props to see if pic is uploaded before submiting
+		if(!this.props.imageURL) return; //show no img error
 		var post = {title: this.state.newTitle, 
 			description: this.state.newDescription, 
 			image: this.props.imageURL};
@@ -52,14 +52,12 @@ class Posts extends Component {
 	
 	render(){
 		if(this.props.loggedIn && !this.props.loadedPosts && !this.props.loadedPosts){
-			console.log('aaaaaaaaaaaaaaaa');
 			//this.props.viewingUser instead
 			this.props.getPosts(this.props.userId, this.props.token); //should call once? 
 			//this.loadedPosts = true;
 		}
 		if(this.props.posts && this.props.posts[0] && !this.props.loadedComments) {//should call once? 
 			this.props.posts.map(post => {
-				///get Comments here
 				this.props.getComments(this.props.userId, this.props.token, post.postid );
 			});
 			this.loadedComments = true;
@@ -67,25 +65,29 @@ class Posts extends Component {
 		return(
 			<div className="posts">
 				{
-					this.state.newPost ?
-						<div>
-							<h3>making a new post</h3>
-							<form onSubmit={this.handleSubmit}>
-								<h4>Title:</h4>
-								<textarea value={this.state.newTitle} 
-									onChange={this.titleChange}/>
-								<textarea value={this.state.newDescription} 
-									onChange={this.descriptionChange}/>
-								<input type="file" onChange={this.fileChangedHandler}/>
-								<button action="submit">Submit</button>
-							</form>
-						</div>
+					this.props.loggedIn && !this.state.newPost? 
+						<button onClick={this.createPost}>New Post</button>	
 					:
 						<div></div>
 				}
 				{
-					this.props.loggedIn ? 
-						<button onClick={this.createPost}>New Post</button>	
+					this.state.newPost ?
+						<div className="newPost ">
+							<h3>New Post</h3>
+							<div className="newPostWrapper well well-sm">
+							
+							
+							<form onSubmit={this.handleSubmit}>
+								<input type="text" className="form-control" value={this.state.newTitle} 
+									onChange={this.titleChange} placeholder="Post Title"/>
+								<textarea type="text" value={this.state.newDescription} 
+									onChange={this.descriptionChange} placeholder="Text" className="newPostText"/>
+								<input type="file" onChange={this.fileChangedHandler}/>
+								<button action="submit">Submit</button>
+							</form>
+							
+							</div>
+						</div>
 					:
 						<div></div>
 				}

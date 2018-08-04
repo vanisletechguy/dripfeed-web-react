@@ -40,8 +40,8 @@ class AddFriend extends Component {
 	resultIsFriend(user){
 		var isFriend = false;	
 		console.log('user', user);
-		console.log('friendlist', this.props.friendList);
-		if(this.props.friendList){
+		console.log('friendlist', this.props.friendsList);
+		if(this.props.friendsList){
 			this.props.friendsList.map(friend => {
 				if (friend.iduser === user.iduser) isFriend = true; 
 			})
@@ -63,17 +63,18 @@ class AddFriend extends Component {
 					this.state.addingFriend ?
 						<div>
 							<form onSubmit={this.searchFriend}>
-								<textarea value={this.state.firstName} onChange={this.handleFirstNameChanged}/>	
-								<textarea value={this.state.lastName} onChange={this.handleLastNameChanged}/>	
+								<input type="text" className="form-control" value={this.state.firstName}
+									onChange={this.handleFirstNameChanged} placeholder="first name"/>	
+								<input type="text" className="form-control" value={this.state.lastName} 
+									onChange={this.handleLastNameChanged} placeholder="last name"/>	
 								<input type="submit" value="Search"/>
 							</form>
 						{
 							this.props.newFriend ?
-								<div>
+								<div className="well well-sm">
 									<h4>Search Result</h4>
 									<div >{this.props.newFriend.firstName}{this.props.newFriend.lastName}
 									{
-										//if newFriend is already friend show Friends instead of Add
 										this.resultIsFriend(this.props.newFriend) ?
 											<div className="searchResult">
 												<div>FRIENDS</div>

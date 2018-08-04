@@ -44,11 +44,10 @@ function registerJSON(userInfo){
 		headers: new Headers({
 	 'Authorization': 'Basic '+btoa('username:password'), 
 	 'Content-Type': 'application/x-www-form-urlencoded',
-	 'iduser' : '4',
-	 'email' : '2222arasfsdfuy@gmail.com',
-	 'password' : 'password',
-	 'firstName' : 'asdddfai',
-	 'lastName' : 'asdffd'
+	 'email' : userInfo.email,
+	 'password' : userInfo.password,
+	 'firstName' : userInfo.firstName,
+	 'lastName' : userInfo.lastName
 	 }), 
 	 body: 'A=1&B=2'
 	}).then(response => response.json());

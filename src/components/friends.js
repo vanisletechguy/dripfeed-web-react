@@ -45,10 +45,10 @@ class Friends extends Component {
 													<div className="friendListItem">
 														<div onClick={(e) => this.selectFriend(e, friend)}>
 															{friend.firstName}	{friend.lastName}
+															<div onClick={(e) => {this.removeFriend(e, friend)}} 
+																className="removeFriend">[Remove]
+															</div>
 														</div> 
-														<div onClick={(e) => {this.removeFriend(e, friend)}} 
-															className="removeFriend">[Remove]
-														</div>
 													</div>
 												</li>
 											);
