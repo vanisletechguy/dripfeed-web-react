@@ -1,5 +1,6 @@
 import {LOGIN} from '../actions/index';
 import {RECIEVED_TOKEN} from '../actions/index';
+import {LOGIN_FAILED} from '../actions/index';
 
 export default function auth(state={}, action){
 	if(!state){ state = {}; }
@@ -15,6 +16,14 @@ export default function auth(state={}, action){
 				email: action.token.email
 			}
 			return state;
+		case LOGIN_FAILED:
+			//console.log('the login failed');
+			//state = {
+			//	loggedIn: action.loggedIn,
+			//	attempt: true 
+			//}
+			//return state;
+			return {...state, loggedIn: action.loggedIn, attempt: true};
 		default:
 			state.yourToken = '';
 			return state;

@@ -1,15 +1,17 @@
 export const LOGIN = 'LOGIN'; 
 export const RECIEVED_TOKEN =  'RECIEVED_TOKEN';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
 
 //////////////////////////////login ///////////////////
 function fetchTokenJSON(payload) {
+	console.log('at login payload is: ', payload);
 	return fetch('http://localhost:3131/api/login', { 
 		 method: 'post', 
 		 headers: new Headers({
 			 'Authorization': 'Basic '+btoa('username:password'), 
 			 'Content-Type': 'application/x-www-form-urlencoded',
-			 'email' : '2222arasfsdfuy@gmail.com',
-			 'password' : 'password'
+			 'email' : payload.email,
+			 'password' : payload.password 
 		 }), 
 		 body: 'A=1&B=2'
 	 }).then(response => response.json());
@@ -23,10 +25,17 @@ function fetchToken(payload){
 
 function recieveToken(json){
 	var token = json; ///check for err
-	return{
-		type: RECIEVED_TOKEN,
-		token,
-		loggedIn: true,
+	if(!json.success){
+		return {
+			type: LOGIN_FAILED,
+			loggedIn: false
+		}
+	} else {
+		return{
+				type: RECIEVED_TOKEN,
+				token,
+				loggedIn: true,
+			}
 	}
 }
 
