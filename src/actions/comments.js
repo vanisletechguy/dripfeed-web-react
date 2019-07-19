@@ -16,7 +16,7 @@ function fetchComments(userid, token, postId){
 }
 
 function fetchCommentsJSON(userid, token, postId){
-	return fetch('http://localhost:3131/api/comments', {
+	return fetch('http://18.188.180.75:3131/api/comments', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -53,7 +53,7 @@ function submit(userId, token, postId, text){
 }
 
 function submitCommentJSON(userId, token, postId, text) {
-	return fetch('http://localhost:3131/api/comments', {
+	return fetch('http://18.188.180.75:3131/api/comments', {
 		method: 'put',
 		headers: new Headers({
 		'Content-Type': 'application/x-www-form-urlencoded',

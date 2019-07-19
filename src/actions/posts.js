@@ -17,7 +17,7 @@ function fetchPosts(userId, token){
 	}
 }
 function fetchPostsJSON(userId, token){
-	return fetch('http://localhost:3131/api/posts', {
+	return fetch('http://18.188.180.75:3131/api/posts', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -53,7 +53,7 @@ function submit(userId, token, post){
 }
 function submitPostJSON(userId, token, post){
 	console.log('post image is: ', post.image);
-	return fetch('http://localhost:3131/api/upload', {
+	return fetch('http://18.188.180.75:3131/api/upload', {
 		method: 'post',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -77,6 +77,7 @@ function submitResponse(json){
 }
 ////////////////////////////////////UploadPic ////////////////////////
 export function uploadPic(newPicture, token){
+	console.log('in uploadPic');
 	return submitPic(newPicture, token);
 }
 function submitPic(newPicture, token){
@@ -86,7 +87,8 @@ function submitPic(newPicture, token){
 	};
 }
 function getSignedURLRequest(newPicture, token) {
-	return	fetch('http://localhost:3131/api/sign-s3', {
+	console.log('in getSignedURLRequest, token is: ', token);
+	return	fetch('http://18.188.180.75:3131/api/sign-s3', {
 		method: 'get',
 		headers: new Headers({
 			'contentType': "text/plain",

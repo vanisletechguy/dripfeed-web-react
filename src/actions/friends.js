@@ -17,7 +17,7 @@ function fetchFriends(userid, token){
 }
 
 function fetchFriendsJSON(userid, token){
-	return fetch('http://localhost:3131/api/myfriends', {
+	return fetch('http://18.188.180.75:3131/api/myfriends', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -50,7 +50,7 @@ function fetchUser(userid, token, firstName, lastName){
 
 function fetchUserJSON(userid, token, firstName, lastName){
 	console.log('last name result: ', lastName);	
-	return fetch('http://localhost:3131/api/search', {
+	return fetch('http://18.188.180.75:3131/api/search', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -85,7 +85,7 @@ function unfriendRequest(userid, token,friend){
 }
 
 function unfriendRequestJSON(userid, token, friend){
-	return fetch('http://localhost:3131/api/unfriend', {
+	return fetch('http://18.188.180.75:3131/api/unfriend', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -119,7 +119,7 @@ function addFriendRequest(userid, token,friend){
 }
 
 function addFriendRequestJSON(userid, token, friend){
-	return fetch('http://localhost:3131/api/addfriend', {
+	return fetch('http://18.188.180.75:3131/api/addfriend', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',

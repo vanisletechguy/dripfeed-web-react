@@ -25,6 +25,7 @@ export default function auth(state={}, action){
 			//return state;
 			return {...state, loggedIn: action.loggedIn, attempt: true};
 		default:
+			console.log('default reducer clearing state');
 			state.yourToken = '';
 			return state;
 	}

@@ -92,12 +92,15 @@ class Auth extends Component {
 	}
 
 	handleSubmit(event){
+		event.preventDefault();
+		console.log('in handleSubmit');
 		const payload = 
 			{email: this.state.email, password: this.state.password};
+			console.log('payload is ', payload);
 		this.props.login(payload);
-		event.preventDefault();
 	}
 
+	//called when the user clicks submit on the registration form
 	submitRegistration(event){
 		event.preventDefault();
 		const userInfo = {

@@ -7,6 +7,7 @@ export default function friends(state={}, action){
 	if(!state){state = {};}
 	switch (action.type) {
 		case RECIEVE_FRIENDS:
+			console.log('case: recieve_friends');
 			if(action.friends && action.friends[0]){
 				state = {
 					friends: action.friends,
