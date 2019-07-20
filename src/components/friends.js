@@ -13,19 +13,23 @@ class Friends extends Component {
 		this.removeFriend = this.removeFriend.bind(this);
 	}
 	
+	//when the user clicks a friends name, their posts should display
 	selectFriend(event, friend){
 		console.log('u clicked on id:', friend.iduser);
 		this.props.clearPosts();
 		this.props.clearComments();
 		this.props.getPosts(friend.iduser, this.props.token);
 	}
-
+	
+	//remove this user from the current user's friend list
 	removeFriend(event, friend){
 		console.log('friend is', friend);
 		this.props.unFriend(this.props.userId, this.props.token, friend.iduser)
 
 	}
 
+	//this component will display the current user's friend list
+	//each friend can be selected to view their posts, or removed from the list
 	render(){
 		if(this.props.loggedIn && !this.props.loadedFriends &&this.props.token){
 			this.props.getFriends(this.props.userId, this.props.token); 

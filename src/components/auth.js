@@ -24,18 +24,25 @@ class Auth extends Component {
 		this.register = this.register.bind(this);
 		this.myFeed = this.myFeed.bind(this);
 	}
+
+	//tells the component to display the input objects needed to register a new user
 	register(event){
 		this.setState({registering: true});
 	}
 
+	//show the current user a personalized feed constructed by the server
 	myFeed(event){
 		event.preventDefault();
 		this.props.getPosts(this.props.userId, this.props.token);
 	}
 
+	//handles cancelling the registration form
 	cancelRegistration(event){
 		this.setState({registering: false});
 	}
+
+	//this component displays a form for the user to login with a username and password
+	//or they may click a button that will display a new registration form that the user may submit
 	render(){
 		return(
 			<div>
@@ -91,12 +98,11 @@ class Auth extends Component {
 		)
 	}
 
+	//called when the user clicks submit on the login form
 	handleSubmit(event){
 		event.preventDefault();
-		console.log('in handleSubmit');
 		const payload = 
 			{email: this.state.email, password: this.state.password};
-			console.log('payload is ', payload);
 		this.props.login(payload);
 	}
 
@@ -109,24 +115,28 @@ class Auth extends Component {
 			password: this.state.password,
 			email: this.state.email
 		};
-		console.log('userinfo is: ', userInfo);
 		this.props.registerUser(userInfo);
 		this.setState({registering: false});
 	}
 
+
+	//handles changing the text value of the password field	
 	handlePassChange(event){
 		this.setState({password: event.target.value});
 	}
 
+	//handles changing the text value of the first name field	
 	handleFirstNameChange(event){
 		this.setState({firstName: event.target.value});
 	}
 
 
+	//handles changing the text value of the last name field	
 	handleLastNameChange(event){
 		this.setState({lastName: event.target.value});
 	}
 
+	//handles changing the text value of the email field	
 	handleEmailChange(event){
 		this.setState({email: event.target.value});
 	}

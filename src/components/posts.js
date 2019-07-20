@@ -23,23 +23,28 @@ class Posts extends Component {
 		this.viewingUser = 0;
 	}
 
+	//tell the component to display the objects needed to create a new post
 	createPost(){
 		this.setState({newPost: true});
 	}
-	
+
+	//handles changes to the new post's title
 	titleChange(event){
 		this.setState({newTitle: event.target.value})
 	}
-	
+
+	//handles changes to the new post's description
 	descriptionChange(event){
 		this.setState({newDescription: event.target.value})
 	}
 
+	//handle changes to the choosen image file
 	fileChangedHandler(event){
 		this.setState({newPostPic: event.target.files[0]})
 		this.props.uploadPic(event.target.files[0], this.props.token);
 	}
 
+	//handles when the user submits a new post
 	handleSubmit(event){
 		event.preventDefault();
 		if(!this.props.imageURL) return; //show no img error
@@ -49,18 +54,27 @@ class Posts extends Component {
 		this.props.submitPost(this.props.userId, this.props.token, post);
 		this.setState({newPost: false});
 	}
-	
+
+	//this component will conditionally display the posts loaded into state which 
+	//could either be a) the current users posts b) a selected friends posts c) a feed of friends posts
+	//this component will also display a form for creating a new comment
 	render(){
 		if(this.props.loggedIn && !this.props.loadedPosts && !this.props.loadedPosts){
 			//this.props.viewingUser instead
 			this.props.getPosts(this.props.userId, this.props.token); //should call once? 
-			//this.loadedPosts = true;
+			this.loadedPosts = true;
+			//this.loadedComments = true;
 		}
+
+
+
+		////should this be done in the comment component????
 		if(this.props.posts && this.props.posts[0] && !this.props.loadedComments) {//should call once? 
 			this.props.posts.map(post => {
-				this.props.getComments(this.props.userId, this.props.token, post.postid );
+				console.log('calling getComments in Render');
+				//this.props.getComments(this.props.userId, this.props.token, post.postid );
 			});
-			this.loadedComments = true;
+			//this.loadedComments = true;
 		}
 		return(
 			<div className="posts">
