@@ -41,14 +41,14 @@ export function clearComments(){
 	}
 }
 
-///////////////////////////////////////Submit Comment ////////////////
+//Submit Comment ////////////////
 export function submitComment(userId, token, postId, text){
 	return submit(userId, token, postId, text);
 }
 function submit(userId, token, postId, text){
 	return function(dispatch) {
-		return submitCommentJSON(userId, token, postId, text).then(json => dispatch(
-			submitResponse(json)));
+		return submitCommentJSON(userId, token, postId, text).then(
+			json => dispatch(submitResponse(json)));
 	}
 }
 

@@ -6,16 +6,19 @@ export const S3_RESPONSE = 'S3_RESPONSE';
 export const S3_SUCCESS = 'S3_SUCCESS';
 export const S3_FAIL = 'S3_FAIL';
 export const CLEAR_POSTS = 'CLEAR_POSTS';
-///////////////////////////////////////Get Posts/////////////////////
+
+//Get Posts/////////////////////
 export function getPosts(userId, token){
 	return fetchPosts(userId, token);
 }
+
 function fetchPosts(userId, token){
 	return function(dispatch) {
 		return fetchPostsJSON(userId, token).then(json => dispatch(
 			recievePosts(json, userId, token)));
 	}
 }
+
 function fetchPostsJSON(userId, token){
 	return fetch('http://18.188.180.75:3131/api/posts', {
 		method: 'get',
@@ -26,6 +29,7 @@ function fetchPostsJSON(userId, token){
 		}),
 	}).then(response => response.json());
 }
+
 function recievePosts(json, userId, token){
 	var posts = json.posts;
 		return{
@@ -34,25 +38,27 @@ function recievePosts(json, userId, token){
 		};
 }
 
-///////////////////////////////////////Clear Posts/////////////////////
+//Clear Posts/////////////////////
 export function clearPosts(){
 	return {
 		type: CLEAR_POSTS
 	};
 	
 }
-///////////////////////////////////////Submit Post/////////////////////
+
+//Submit Post/////////////////////
 export function submitPost(userId, token, post){
 	return submit(userId, token, post);
 }
+
 function submit(userId, token, post){
 	return function(dispatch) {
 		return submitPostJSON(userId, token, post).then(json => dispatch(
 			submitResponse(json)));
 	}
 }
+
 function submitPostJSON(userId, token, post){
-	console.log('post image is: ', post.image);
 	return fetch('http://18.188.180.75:3131/api/upload', {
 		method: 'post',
 		headers: new Headers({
@@ -67,27 +73,28 @@ function submitPostJSON(userId, token, post){
 		body: {picture: post.image}
 	});
 }
+
 function submitResponse(json){
 	var response = json;
-	console.log('response from submiting', response);
 	return{
 		type: POST_RESPONSE,
 		response
 	};
 }
-////////////////////////////////////UploadPic ////////////////////////
+
+//UploadPic ////////////////////////
 export function uploadPic(newPicture, token){
-	console.log('in uploadPic');
 	return submitPic(newPicture, token);
 }
+
 function submitPic(newPicture, token){
 	return function (dispatch) {
 		return getSignedURLRequest(newPicture, token).then(json => dispatch( 
 			sendToS3JSON(json, newPicture)));
 	};
 }
+
 function getSignedURLRequest(newPicture, token) {
-	console.log('in getSignedURLRequest, token is: ', token);
 	return	fetch('http://18.188.180.75:3131/api/sign-s3', {
 		method: 'get',
 		headers: new Headers({
@@ -98,11 +105,10 @@ function getSignedURLRequest(newPicture, token) {
 		}),
 	}).then(response => response.json());
 }
+
 function sendToS3JSON(json, newPicture) {
 	const signedRequest = json.data.signedRequest;
 	const signedURL = json.data.url;
-	console.log('got the signed data!: ', signedRequest);
-	console.log('the url is: ', signedURL);
 	const xhr = new XMLHttpRequest();
 	xhr.open('PUT', signedRequest);
 	xhr.onreadystatechange = () => {
@@ -129,7 +135,7 @@ function sendToS3JSON(json, newPicture) {
 					url: signedURL
 				};
 }
-///////////////////////////////
+
 function s3Response(Response = ''){
 	var response = Response;
 	console.log('s3 responded with: ', response);

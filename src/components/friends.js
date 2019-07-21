@@ -15,7 +15,6 @@ class Friends extends Component {
 	
 	//when the user clicks a friends name, their posts should display
 	selectFriend(event, friend){
-		console.log('u clicked on id:', friend.iduser);
 		this.props.clearPosts();
 		this.props.clearComments();
 		this.props.getPosts(friend.iduser, this.props.token);
@@ -23,9 +22,7 @@ class Friends extends Component {
 	
 	//remove this user from the current user's friend list
 	removeFriend(event, friend){
-		console.log('friend is', friend);
 		this.props.unFriend(this.props.userId, this.props.token, friend.iduser)
-
 	}
 
 	//this component will display the current user's friend list
@@ -33,7 +30,6 @@ class Friends extends Component {
 	render(){
 		if(this.props.loggedIn && !this.props.loadedFriends &&this.props.token){
 			this.props.getFriends(this.props.userId, this.props.token); 
-			console.log('sdfsdfsdfsdf');
 		}
 		return(
 			<div className="friends">
@@ -49,8 +45,8 @@ class Friends extends Component {
 													<div className="friendListItem">
 														<div onClick={(e) => this.selectFriend(e, friend)}>
 															{friend.firstName}	{friend.lastName}
-															<div onClick={(e) => {this.removeFriend(e, friend)}} 
-																className="removeFriend">[Remove]
+															<div onClick={(e) => {this.removeFriend(
+																e, friend)}} className="removeFriend">[Remove]
 															</div>
 														</div> 
 													</div>
@@ -79,4 +75,5 @@ function mapStateToProps(state){
 	};
 }
 
-export default connect(mapStateToProps, {getFriends, getPosts, clearPosts, clearComments, unFriend})(Friends);
+export default connect(mapStateToProps, {getFriends, getPosts, clearPosts, 
+	clearComments, unFriend})(Friends);

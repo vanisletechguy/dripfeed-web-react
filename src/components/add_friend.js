@@ -32,15 +32,13 @@ class AddFriend extends Component {
 	}
 	
 	searchFriend(event){
-		console.log('searching friend:', this.state.firstName);
-		this.props.searchForUser(this.props.userId, this.props.token, this.state.firstName, this.state.lastName);
+		this.props.searchForUser(this.props.userId, this.props.token, 
+		this.state.firstName, this.state.lastName);
 		event.preventDefault();
 	}
 
 	resultIsFriend(user){
 		var isFriend = false;	
-		console.log('user', user);
-		console.log('friendlist', this.props.friendsList);
 		if(this.props.friendsList){
 			this.props.friendsList.map(friend => {
 				if (friend.iduser === user.iduser) isFriend = true; 
@@ -63,17 +61,23 @@ class AddFriend extends Component {
 					this.state.addingFriend ?
 						<div>
 							<form onSubmit={this.searchFriend}>
-								<input type="text" className="form-control" value={this.state.firstName}
-									onChange={this.handleFirstNameChanged} placeholder="first name"/>	
-								<input type="text" className="form-control" value={this.state.lastName} 
-									onChange={this.handleLastNameChanged} placeholder="last name"/>	
+								<input type="text" className="form-control" 
+									value={this.state.firstName} 
+									onChange={this.handleFirstNameChanged} 
+									placeholder="first name"/>	
+								<input type="text" className="form-control" 
+									value={this.state.lastName} 
+									onChange={this.handleLastNameChanged} 
+									placeholder="last name"/>	
 								<input type="submit" value="Search"/>
 							</form>
 						{
 							this.props.newFriend ?
 								<div className="well well-sm">
 									<h4>Search Result</h4>
-									<div >{this.props.newFriend.firstName}{this.props.newFriend.lastName}
+									<div>
+										{this.props.newFriend.firstName}
+										{this.props.newFriend.lastName}
 									{
 										this.resultIsFriend(this.props.newFriend) ?
 											<div className="searchResult">
@@ -81,7 +85,8 @@ class AddFriend extends Component {
 											</div>
 										:
 											<div className="searchResult">
-												<div onClick={(e) => this.addToFriends(e,this.props.newFriend)}>ADD</div>
+												<div onClick={(e) => 
+													this.addToFriends(e,this.props.newFriend)}>ADD</div>
 											</div>
 									}								
 										</div>

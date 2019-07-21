@@ -7,16 +7,10 @@ export default function comments(state={}, action){
 		case RECIEVE_POSTS:
 				return {...state, loadedComments: false};
 		case RECIEVE_COMMENTS:
-			console.log('in comments action is:', action);	
-
-			//if new comments add them to the state
-
 			if(action.comments && action.comments[0]){
 				state.comments = [...state.comments, action.comments];
-				//state= [...state.comments, action.comments];
 				state.loadedComments = true;
 			} else {
-				//supposed 
 				return {...state, loadedComments: true};
 			} 
 			return state;

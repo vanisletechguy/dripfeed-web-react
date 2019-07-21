@@ -4,7 +4,7 @@ export const SEARCH_RESULT = 'SEARCH_RESULT';
 export const UNFRIEND_RESPONSE = 'UNFRIEND_RESPONSE';
 export const ADD_FRIEND_RESPONSE = 'ADD_FRIEND_RESPONSE';
 
-////////////////////////////GET FRIENDS LIST/////////
+//GET FRIENDS LIST/////////
 export function getFriends(userid, token){
 	return fetchFriends(userid, token);
 }	
@@ -35,21 +35,20 @@ function recieveFriends(json){
 	};
 }
 
-/////////////////////////////SEARCH FOR A NEW FRIEND/////////
-//add token
+//SEARCH FOR A NEW FRIEND/////////
+//add token checking ??
 export function searchForUser(userid, token, firstName, lastName){
 	return fetchUser(userid, token, firstName, lastName);
 }
 
 function fetchUser(userid, token, firstName, lastName){
 	return function(dispatch) {
-		return fetchUserJSON(userid, token, firstName, lastName).then(json => dispatch(
-			searchResult(json)));
+		return fetchUserJSON(userid, token, firstName, lastName).then(
+			json => dispatch(searchResult(json)));
 	}
 }
 
 function fetchUserJSON(userid, token, firstName, lastName){
-	console.log('last name result: ', lastName);	
 	return fetch('http://18.188.180.75:3131/api/search', {
 		method: 'get',
 		headers: new Headers({
@@ -63,7 +62,6 @@ function fetchUserJSON(userid, token, firstName, lastName){
 }
 
 function searchResult(json){
-	console.log('search result: ', json);	
 	var result = json;
 	return{
 		type: SEARCH_RESULT,
@@ -72,7 +70,7 @@ function searchResult(json){
 }
 
 
-///////////////////////////////////REMOVE A FRIEND////////////////////////
+//REMOVE A FRIEND////////////////////////
 export function unFriend(userid, token, friend){
 	return unfriendRequest(userid, token, friend);
 }
@@ -97,7 +95,6 @@ function unfriendRequestJSON(userid, token, friend){
 }
 
 function unfriendResponse(json){
-	console.log('af24f4');
 	var response = json;
 	return {
 		type: UNFRIEND_RESPONSE,
@@ -105,9 +102,8 @@ function unfriendResponse(json){
 	}
 }
 
-///////////////////////////////////ADD A FRIEND////////////////////////
+//ADD A FRIEND////////////////////////
 export function addFriend(userid, token, friend){
-	console.log('asdfa', friend);
 	return addFriendRequest(userid, token, friend);
 }
 

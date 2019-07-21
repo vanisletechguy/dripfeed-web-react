@@ -56,25 +56,14 @@ class Posts extends Component {
 	}
 
 	//this component will conditionally display the posts loaded into state which 
-	//could either be a) the current users posts b) a selected friends posts c) a feed of friends posts
-	//this component will also display a form for creating a new comment
+	//could either be a) the current users posts b) a selected friends posts c) a 
+	//feed of friends posts this component will also display a form for creating 
+	//a new comment
 	render(){
-		if(this.props.loggedIn && !this.props.loadedPosts && !this.props.loadedPosts){
-			//this.props.viewingUser instead
-			this.props.getPosts(this.props.userId, this.props.token); //should call once? 
+		if(this.props.loggedIn && !this.props.loadedPosts && 
+			!this.props.loadedPosts){
+			this.props.getPosts(this.props.userId, this.props.token); 
 			this.loadedPosts = true;
-			//this.loadedComments = true;
-		}
-
-
-
-		////should this be done in the comment component????
-		if(this.props.posts && this.props.posts[0] && !this.props.loadedComments) {//should call once? 
-			this.props.posts.map(post => {
-				console.log('calling getComments in Render');
-				//this.props.getComments(this.props.userId, this.props.token, post.postid );
-			});
-			//this.loadedComments = true;
 		}
 		return(
 			<div className="posts">
@@ -89,17 +78,16 @@ class Posts extends Component {
 						<div className="newPost ">
 							<h3>New Post</h3>
 							<div className="newPostWrapper well well-sm">
-							
-							
 							<form onSubmit={this.handleSubmit}>
-								<input type="text" className="form-control" value={this.state.newTitle} 
+								<input type="text" className="form-control" 
+									value={this.state.newTitle} 
 									onChange={this.titleChange} placeholder="Post Title"/>
 								<textarea type="text" value={this.state.newDescription} 
-									onChange={this.descriptionChange} placeholder="Text" className="newPostText"/>
+									onChange={this.descriptionChange} placeholder="Text" 
+									className="newPostText"/>
 								<input type="file" onChange={this.fileChangedHandler}/>
 								<button action="submit">Submit</button>
 							</form>
-							
 							</div>
 						</div>
 					:

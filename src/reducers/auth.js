@@ -5,7 +5,7 @@ import {LOGIN_FAILED} from '../actions/index';
 export default function auth(state={}, action){
 	if(!state){ state = {}; }
 	switch (action.type) {
-		case LOGIN: ///reducer not required?? use recToken
+		case LOGIN: 
 			return state;	
 		case RECIEVED_TOKEN:
 			state = {};
@@ -17,12 +17,6 @@ export default function auth(state={}, action){
 			}
 			return state;
 		case LOGIN_FAILED:
-			//console.log('the login failed');
-			//state = {
-			//	loggedIn: action.loggedIn,
-			//	attempt: true 
-			//}
-			//return state;
 			return {...state, loggedIn: action.loggedIn, attempt: true};
 		default:
 			console.log('default reducer clearing state');

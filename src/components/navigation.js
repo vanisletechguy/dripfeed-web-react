@@ -56,4 +56,5 @@ function mapStateToProps(state){
 		token: state.auth.token
 	};
 }
-export default connect(mapStateToProps, {getPosts, clearPosts, clearComments})(Navigation);
+export default connect(mapStateToProps, {getPosts, clearPosts, 
+	clearComments})(Navigation);
