@@ -3,10 +3,32 @@ import {connect} from 'react-redux';
 import {login} from '../actions';
 import {registerUser} from '../actions';
 import {getPosts} from '../actions/posts';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'; 
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box'
+
 
 class Auth extends Component {
 	constructor(props) {
 		super(props);
+		this.classes = makeStyles(theme => ({
+			root: {
+				background: '#A2C1DA',
+			},
+			button: {
+				margin: theme.spacing(1),
+			},
+			input: {
+				display: 'none',
+			},
+			title: {
+				flexGrow: 1,
+			},
+		}));
+
 		this.state = {
 			firstName: '',
 			lastName: '',
@@ -14,6 +36,7 @@ class Auth extends Component {
 			email: '',
 			registering: false
 		};
+
 		this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
 		this.handleLastNameChange = this.handleLastNameChange.bind(this);
 		this.handlePassChange = this.handlePassChange.bind(this);
@@ -50,56 +73,65 @@ class Auth extends Component {
 			<div>
 				{
 					!this.props.loggedIn && !this.state.registering ? 
-						<div className="auth">
+						<div className={this.classes.root}>
 								<form onSubmit={this.handleSubmit}>
-									<h4>Login</h4>
-									<input type="text" className="form-control" 
+									<Typography variant="h4" className={this.classes.title}>
+									Login</Typography>
+									<TextField type="text" className="form-control" 
 										value={this.state.email} 
 										onChange={this.handleEmailChange} 
 										placeholder="email"/>
-									<input type="password" className="form-control" 
+									<TextField type="password" className="form-control" 
 										value={this.state.password} 
 										onChange={this.handlePassChange} 
 										placeholder="password"/>
-									<div className="authButtons">
-										<input type="submit" value="Submit"/>
+									<div variant="contained" color="primary" 
+										className={this.classes.button}>
+										<Button type="submit">Submit</Button>
 									</div>
 								</form>
 
-								<button onClick={this.register}>Register</button>
+								<Button variant="contained" color="primary" 
+									className={this.classes.button} onClick={this.register}>
+									Register
+								</Button>
 								{
 									this.props.loginAttempted ?  
-										<div>Login Failed</div> 
+										<Typography variant="h4" className={this.classes.title}>
+											<div>Login Failed</div></Typography>
 									: 
-										<div>not tried yet</div>
+										<Typography variant="h4" className={this.classes.title}>
+											<div>not tried yet</div></Typography>
 								}
-							</div>
+						</div>
 					: 
 						<div></div>
 				}
 				{
 					!this.props.loggedIn && this.state.registering ?
 						<form onSubmit={this.submitRegistration}>
-							<h4>Register</h4>
-							<input type="text" className="form-control" 
+
+							<Typography variant="h4" className={this.classes.title}>
+							Register</Typography>
+							<TextField type="text" className="form-control" 
 								value={this.state.firstName} 
 								onChange={this.handleFirstNameChange} 
 								placeholder="First Name"/>
-							<input type="text" className="form-control" 
+							<TextField type="text" className="form-control" 
 								value={this.state.lastName} 
 								onChange={this.handleLastNameChange} 
 								placeholder="Last Name"/>
-							<input type="password" className="form-control" 
+							<TextField type="password" className="form-control" 
 								value={this.state.password} 
 								onChange={this.handlePassChange} 
 								placeholder="password"/>
-							<input type="text" className="form-control" 
+							<TextField type="text" className="form-control" 
 								value={this.state.email} 
 								onChange={this.handleEmailChange} 
 								placeholder="email address"/>
 							<div className="authButtons">
-								<input type="submit" value="Submit"/>
-								<button onClick={this.cancelRegistration}>Cancel</button>
+								<Button type="submit">Submit</Button>
+								<Button onClick={this.cancelRegistration}>Cancel</Button>
 							</div>
 						</form>
 					: 
@@ -108,8 +140,10 @@ class Auth extends Component {
 				{
 					this.props.loggedIn ?
 						<div className="auth">
-							<h4>Logged In as: {this.props.email}</h4>
-							<h4 onClick={this.myFeed}>My Feed</h4>
+
+							<Typography variant="h4" className={this.classes.title}>
+							Logged In as: {this.props.email}</Typography>
+							<Button onClick={this.myFeed}>My Feed</Button>
 						</div>
 					: 
 						<div></div>
@@ -139,7 +173,6 @@ class Auth extends Component {
 		this.setState({registering: false});
 	}
 
-
 	//handles changing the text value of the password field	
 	handlePassChange(event){
 		this.setState({password: event.target.value});
@@ -149,7 +182,6 @@ class Auth extends Component {
 	handleFirstNameChange(event){
 		this.setState({firstName: event.target.value});
 	}
-
 
 	//handles changing the text value of the last name field	
 	handleLastNameChange(event){
@@ -173,4 +205,5 @@ function mapStateToProps(state){
 		loginAttempted: state.auth.attempt
 	};
 }
+
 export default connect(mapStateToProps, {login, registerUser,getPosts} )(Auth);

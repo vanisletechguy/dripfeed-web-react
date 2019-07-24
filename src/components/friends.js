@@ -5,23 +5,45 @@ import {unFriend} from '../actions/friends';
 import {getPosts} from '../actions/posts';
 import {clearPosts} from '../actions/posts';
 import {clearComments} from '../actions/comments';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'; 
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box'
+
 
 class Friends extends Component {
 	constructor(props){
 		super(props);
+		this.classes = makeStyles(theme => ({
+			root: {
+				background: '#A2C1DA',
+			},
+			button: {
+				margin: theme.spacing(1),
+			},
+			input: {
+				display: 'none',
+			},
+			title: {
+				flexGrow: 1,
+			},
+		}));
+
 		this.selectFriend = this.selectFriend.bind(this);
 		this.removeFriend = this.removeFriend.bind(this);
 	}
 	
 	//when the user clicks a friends name, their posts should display
-	selectFriend(event, friend){
+	selectFriend(friend){
 		this.props.clearPosts();
 		this.props.clearComments();
 		this.props.getPosts(friend.iduser, this.props.token);
 	}
 	
 	//remove this user from the current user's friend list
-	removeFriend(event, friend){
+	removeFriend(friend){
 		this.props.unFriend(this.props.userId, this.props.token, friend.iduser)
 	}
 
@@ -33,7 +55,8 @@ class Friends extends Component {
 		}
 		return(
 			<div className="friends">
-				<h3>Friend List</h3>
+				<Typography variant="h4" className={this.classes.title}>
+					Friend List</Typography>
 					{
 						this.props.loadedFriends ?
 							<div>
@@ -43,12 +66,13 @@ class Friends extends Component {
 											return(
 												<li key={friend.iduser} >
 													<div className="friendListItem">
-														<div onClick={(e) => this.selectFriend(e, friend)}>
-															{friend.firstName}	{friend.lastName}
-															<div onClick={(e) => {this.removeFriend(
-																e, friend)}} className="removeFriend">[Remove]
-															</div>
-														</div> 
+															<div onClick={(e) => this.selectFriend(e, friend)}>
+															<Typography variant="h4" className={this.classes.title}>
+																{friend.firstName}	{friend.lastName}
+															</Typography>
+															</div> 
+															<div onClick={this.removeFriend(
+																friend)}>[Remove]</div>
 													</div>
 												</li>
 											);

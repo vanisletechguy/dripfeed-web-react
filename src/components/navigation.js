@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import {getPosts} from '../actions/posts';
 import {clearComments} from '../actions/comments';
 import {clearPosts} from '../actions/posts';
@@ -10,6 +14,20 @@ class Navigation extends Component {
 		this.myFeed = this.myFeed.bind(this);
 		this.myPosts = this.myPosts.bind(this);
 		this.myProfile = this.myProfile.bind(this);
+
+		this.classes = makeStyles(theme => ({
+			root: {
+				background: '#A2C1DA',	
+			},
+			button: {
+				margin: theme.spacing(1),
+			},
+			input: {
+				display: 'none',
+			},
+		}));
+
+
 	}
 
 	//show the user his own posts
@@ -34,14 +52,13 @@ class Navigation extends Component {
 	render() {
 		return(
 			<div className="navigation">
-				<h3>Navigation</h3>
+				<Typography variant="h4" className={this.classes.title}>
+				Navigation</Typography>
 				<div className="friendListItem">
-					<div onClick={this.myFeed()}>
-						[My Feed]	
-						<div onClick={(e) => {this.myPosts()}} 
-							className="removeFriend">[My Posts]
-						</div>
-					</div> 
+					<Button onClick={this.myFeed()}>
+						My Feed</Button>	
+						<Button onClick={this.myPosts()} 
+						>My Posts</Button>
 				</div>
 			</div>
 

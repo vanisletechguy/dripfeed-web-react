@@ -2,10 +2,37 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {searchForUser} from '../actions/friends';
 import {addFriend} from '../actions/friends';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'; 
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box'
+
+
+
+
+
+
 
 class AddFriend extends Component {
 	constructor(props){
 		super(props);
+		this.classes = makeStyles(theme => ({
+			root: {
+				background: '#A2C1DA',
+			},
+			button: {
+				margin: theme.spacing(1),
+			},
+			input: {
+				display: 'none',
+			},
+			title: {
+				flexGrow: 1,
+			},
+		}));
+
 		this.state = {
 			firstName: '',
 			lastName: '',
@@ -56,25 +83,27 @@ class AddFriend extends Component {
 		if(this.props.loggedIn && this.props.token){
 			return(
 				<div>
-					<button onClick={this.addFriend}>Add a friend</button>
+					<Button onClick={this.addFriend}>Add a friend</Button>
 					{
 					this.state.addingFriend ?
 						<div>
 							<form onSubmit={this.searchFriend}>
-								<input type="text" className="form-control" 
+								<TextField type="text" className="form-control" 
 									value={this.state.firstName} 
 									onChange={this.handleFirstNameChanged} 
 									placeholder="first name"/>	
-								<input type="text" className="form-control" 
+								<TextField type="text" className="form-control" 
 									value={this.state.lastName} 
 									onChange={this.handleLastNameChanged} 
 									placeholder="last name"/>	
-								<input type="submit" value="Search"/>
+								<Button type="submit">Submit</Button>
 							</form>
 						{
 							this.props.newFriend ?
 								<div className="well well-sm">
-									<h4>Search Result</h4>
+									<Typography variant="h4" className={this.classes.title}>
+									Search Result</Typography>
+									<Typography variant="h6" className={this.classes.title}>
 									<div>
 										{this.props.newFriend.firstName}
 										{this.props.newFriend.lastName}
@@ -85,11 +114,12 @@ class AddFriend extends Component {
 											</div>
 										:
 											<div className="searchResult">
-												<div onClick={(e) => 
-													this.addToFriends(e,this.props.newFriend)}>ADD</div>
+												<Button onClick={(e) => 
+													this.addToFriends(e,this.props.newFriend)}>ADD</Button>
 											</div>
 									}								
-										</div>
+									</div>
+									</Typography>
 								</div>
 							:
 								<div></div>
