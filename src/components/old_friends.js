@@ -8,13 +8,9 @@ import {clearComments} from '../actions/comments';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'; 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 
+
+const [dense, setDense] = React.useState(false);
 
 class Friends extends Component {
 
@@ -37,24 +33,18 @@ class Friends extends Component {
 
 		this.selectFriend = this.selectFriend.bind(this);
 		this.removeFriend = this.removeFriend.bind(this);
-		this.setDense = this.setDense.bind(this);
 	}
 	
 	//when the user clicks a friends name, their posts should display
-	selectFriend(e,friend){
+	selectFriend(friend){
 		this.props.clearPosts();
 		this.props.clearComments();
 		this.props.getPosts(friend.iduser, this.props.token);
-		console.log('clicked');
 	}
 	
 	//remove this user from the current user's friend list
 	removeFriend(friend){
-		//this.props.unFriend(this.props.userId, this.props.token, friend.iduser);
-	}
-
-	setDense(){
-		//return [dense, setDense] = React.useState(false);
+		this.props.unFriend(this.props.userId, this.props.token, friend.iduser);
 	}
 
 	//this component will display the current user's friend list
@@ -63,7 +53,6 @@ class Friends extends Component {
 		if(this.props.loggedIn && !this.props.loadedFriends &&this.props.token){
 			this.props.getFriends(this.props.userId, this.props.token); 
 		}
-		//const [dense, setDense] = this.setDense();
 		return(
 			<div className={this.classes.root}>
 				<Typography variant="h4" className={this.classes.title}>
@@ -71,20 +60,28 @@ class Friends extends Component {
 					{
 						this.props.loadedFriends ?
 							<div>
-								<List>
+								<ul className="list-unstyled">
 									{
 										this.props.friends.map(friend => {
-											
-											const fullName = friend.firstName + ' ' + friend.lastName;
 											return(
-												<ListItem button onClick={e => this.selectFriend(e,friend)}>
-													<ListItemText
-														primary={fullName}/>
-												</ListItem>
+												<li key={friend.iduser} >
+													<div className="friendListItem">
+															<Button variant="contained" color="primary" 
+																className={this.classes.button} onClick={
+																	this.selectFriend(friend)}>
+																{friend.firstName} {friend.lastName}
+															</Button>
+															<Button variant="contained" color="primary" 
+																className={this.classes.button} onClick={
+																	this.removeFriend(friend)}>[Remove]</Button>
+													</div>
+												</li>
 											);
 										})		
 									}
-								</List>
+								</ul>
+
+
 							</div>
 						:
 							<p></p>

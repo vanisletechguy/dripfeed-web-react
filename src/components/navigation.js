@@ -26,8 +26,6 @@ class Navigation extends Component {
 				display: 'none',
 			},
 		}));
-
-
 	}
 
 	//show the user his own posts
@@ -55,9 +53,9 @@ class Navigation extends Component {
 				<Typography variant="h4" className={this.classes.title}>
 				Navigation</Typography>
 				<div className="friendListItem">
-					<Button onClick={this.myFeed()}>
+					<Button onClick={e => this.myFeed(e)}>
 						My Feed</Button>	
-						<Button onClick={this.myPosts()} 
+					<Button onClick={e => this.myPosts(e)} 
 						>My Posts</Button>
 				</div>
 			</div>
