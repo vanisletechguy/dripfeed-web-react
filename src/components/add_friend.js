@@ -10,11 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
 
 
-
-
-
-
-
 class AddFriend extends Component {
 	constructor(props){
 		super(props);
@@ -39,6 +34,7 @@ class AddFriend extends Component {
 			addingFriend: false
 		}
 		this.addFriend = this.addFriend.bind(this);
+		this.cancelAddFriend = this.cancelAddFriend.bind(this);
 		this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
 		this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
 		this.searchFriend = this.searchFriend.bind(this);
@@ -46,8 +42,12 @@ class AddFriend extends Component {
 		this.addToFriends = this.addToFriends.bind(this);
 	}
 
-	addFriend(event){
+	addFriend(e){
 		this.setState({addingFriend: true});
+	}
+
+	cancelAddFriend(e){
+		this.setState({addingFriend: false});
 	}
 
 	handleFirstNameChanged(event){
@@ -83,7 +83,8 @@ class AddFriend extends Component {
 		if(this.props.loggedIn && this.props.token){
 			return(
 				<div>
-					<Button onClick={this.addFriend}>Add a friend</Button>
+					<Button variant="contained" color="primary" 
+						onClick={this.addFriend}>Add friends</Button>
 					{
 					this.state.addingFriend ?
 						<div>
@@ -96,7 +97,10 @@ class AddFriend extends Component {
 									value={this.state.lastName} 
 									onChange={this.handleLastNameChanged} 
 									placeholder="last name"/>	
-								<Button type="submit">Submit</Button>
+								<Button variant="contained" color="primary" type="submit">
+									Submit</Button>
+								<Button variant="contained" color="primary" 
+									onClick={e => this.cancelAddFriend()}>Cancel</Button>
 							</form>
 						{
 							this.props.newFriend ?
@@ -114,8 +118,8 @@ class AddFriend extends Component {
 											</div>
 										:
 											<div className="searchResult">
-												<Button onClick={(e) => 
-													this.addToFriends(e,this.props.newFriend)}>ADD</Button>
+												<Button onClick={(e) => this.addToFriends(
+													e,this.props.newFriend)}>ADD</Button>
 											</div>
 									}								
 									</div>

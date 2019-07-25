@@ -2,23 +2,57 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getComments} from '../actions/comments';
 import {submitComment} from '../actions/comments';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'; 
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+
+
 
 class Comments extends Component{
 	constructor(props){
 		super(props);
+		this.classes = makeStyles(theme => ({
+			root: {
+				background: '#A2C1DA',
+			},
+			button: {
+				margin: theme.spacing(1),
+			},
+			input: {
+				display: 'none',
+			},
+			title: {
+				flexGrow: 1,
+			},
+		}));
+
 		this.makeComment = this.makeComment.bind(this);
 		this.fetchComments = this.fetchComments.bind(this);
 		this.state = {makingComment: false, newComment: '', 
 			loadedComments: false };
 		this.submitComment = this.submitComment.bind(this);
+		this.cancelMakeComment = this.cancelMakeComment.bind(this);
 		this.commentChanged = this.commentChanged.bind(this);
 		this.state.comments = [];
 		this.submitedNewComment = false;
 	}
 
 	//tell the component to display the form for creating a new comment
-	makeComment(){
+	makeComment(e){
 		this.setState({makingComment: true});
+	}
+
+	cancelMakeComment(e){
+		this.setState({makingComment: false});
 	}
 
 	//handles changes to the new comment text area
@@ -58,20 +92,21 @@ class Comments extends Component{
 	render(){
 		return(
 			<div>
-				<ul className="list-unstyled">
+				<List>
 					{
 						this.state.loadedComments && this.state.comments && 
 							this.state.comments[0] ?
 							this.state.comments.map(comment => {
-									<div>testing comment2</div>
 									if(comment.postid === this.props.postId){
 										return (
 											<div className="well well-sm" key={comment.commentid}>
-												<li>
-													<p>PostId: {comment.postid} 
-														UserId: {comment.userid} </p>	
-													<p>Text: {comment.text}</p>	
-												</li>
+												<ListItem>
+													<Typography variant="h6" 
+														className={this.classes.title}>
+														<ListItemText primary={comment.userid}/>
+														<ListItemText primary={comment.text}/>
+													</Typography>
+												</ListItem>
 											</div>
 										);
 									}
@@ -79,16 +114,21 @@ class Comments extends Component{
 						:
 							<p></p>
 					}
-				</ul>
-				<button onClick={this.makeComment}>New Comment</button>	
+				</List>
+				<Button variant="contained" color="primary" onClick={e => 
+					this.makeComment(e)}>New Comment</Button>	
 				{
 					this.state.makingComment ?
 						<div>
-							<h4>Submit Your Comment</h4>
+							<Typography variant="h4" className={this.classes.title}>
+								Submit Your Comment</Typography>
 							<form onSubmit={this.submitComment}>
 								<textarea value={this.state.newComment} 
 									onChange={this.commentChanged} className="newPostText"/>
-								<button action="submit">Submit</button>
+								<Button variant="contained" color="primary" type="submit">
+									Submit</Button>
+								<Button variant="contained" color="primary" 
+									onClick={e => this.cancelMakeComment()}>Cancel</Button>
 							</form>
 						</div>
 					:
@@ -97,6 +137,7 @@ class Comments extends Component{
 			</div>
 		);
 	}
+
 	componentWillReceiveProps(nextProps, nextState){
 		this.setState({
 			postId: nextProps["postid"]

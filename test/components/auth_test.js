@@ -14,4 +14,7 @@ describe('Auth Component', () => {
 
 	it('allows user to submit userName and password', () => {
 	});
+
+
+
 });

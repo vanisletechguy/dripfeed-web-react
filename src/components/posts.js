@@ -5,11 +5,35 @@ import {submitPost, getPicture} from '../actions/posts';
 import Comments from './comment';
 import {uploadPic} from '../actions/posts';
 import {getComments} from '../actions/comments';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'; 
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box'
+import Input from '@material-ui/core/Input';
+
 
 class Posts extends Component {
 	constructor(props){
 		super(props);
+		this.classes = makeStyles(theme => ({
+			root: {
+				background: '#A2C1DA',
+			},
+			button: {
+				margin: theme.spacing(1),
+			},
+			input: {
+				display: 'none',
+			},
+			title: {
+				flexGrow: 1,
+			},
+		}));
+
 		this.createPost = this.createPost.bind(this);
+		this.cancelNewPost = this.cancelNewPost.bind(this);
 		this.titleChange = this.titleChange.bind(this);
 		this.descriptionChange = this.descriptionChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,8 +48,12 @@ class Posts extends Component {
 	}
 
 	//tell the component to display the objects needed to create a new post
-	createPost(){
+	createPost(e){
 		this.setState({newPost: true});
+	}
+
+	cancelNewPost(e){
+		this.setState({newPost: false});
 	}
 
 	//handles changes to the new post's title
@@ -69,24 +97,29 @@ class Posts extends Component {
 			<div className="posts">
 				{
 					this.props.loggedIn && !this.state.newPost? 
-						<button onClick={this.createPost}>New Post</button>	
+						<Button onClick={e => this.createPost(e)}>New Post</Button>	
 					:
 						<div></div>
 				}
 				{
 					this.state.newPost ?
 						<div className="newPost ">
-							<h3>New Post</h3>
+							<Typography variant="h4" className={this.classes.title}>
+								New Post</Typography>
 							<div className="newPostWrapper well well-sm">
 							<form onSubmit={this.handleSubmit}>
-								<input type="text" className="form-control" 
+								<TextField type="text" className="form-control" 
 									value={this.state.newTitle} 
 									onChange={this.titleChange} placeholder="Post Title"/>
-								<textarea type="text" value={this.state.newDescription} 
+								<TextField type="text" value={this.state.newDescription} 
 									onChange={this.descriptionChange} placeholder="Text" 
 									className="newPostText"/>
-								<input type="file" onChange={this.fileChangedHandler}/>
-								<button action="submit">Submit</button>
+								<Input type="file" onChange={this.fileChangedHandler}/>
+								<br/>
+								<Button type="submit">Submit</Button>
+								<Button variant="contained" color="primary" 
+									onClick={e => this.cancelNewPost()}>Cancel</Button>
+
 							</form>
 							</div>
 						</div>
@@ -109,11 +142,14 @@ class Posts extends Component {
 													<div></div>
 											}
 											<div className="well well-sm postText">
-												<h4>{post.title}</h4>
-												<p>{post.description}</p>
+												<Typography variant="h4" className={this.classes.title}>
+												{post.title}</Typography>
+												<Typography variant="h6" className={this.classes.title}>
+													<p>{post.description}</p></Typography>
 											</div>
 											<div className="well well-sm comments">
-												<h4>Comments</h4>
+												<Typography variant="h4" className={this.classes.title}>
+												Comments</Typography>
 												<Comments postId={post.postid}/>
 											</div>
 											<p><br/></p>

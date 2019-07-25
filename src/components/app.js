@@ -13,12 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu'; 
 
 
-
-
 export default class App extends Component {
-
-
-
 	constructor(props) {
 		super(props);
 		this.classes = makeStyles(theme => ({
@@ -40,25 +35,22 @@ export default class App extends Component {
 				<div className="col-md-12">
 					<AppBar position="static">
 						<Toolbar>
-						 <IconButton edge="start" className={this.classes.menuButton} 
-							 color="inherit" aria-label="Menu">
-						 <MenuIcon />
-						 </IconButton>
-						 <Typography variant="h6" className={this.classes.title}>
-								 DripFeed
-						 </Typography>
-						 <Button color="inherit">Login</Button>
+						  <Typography variant="h6" className={this.classes.title}>
+								DripFeed</Typography>
 						</Toolbar>
 					</AppBar>
 					<div className="col-md-3 well well-sm leftNav">
 						<div>
 							<Auth />
+							<br/>
 						</div>
 						<div>
 							<Navigation />
+							<br/>
 						</div>
 						<div>
 							<AddFriend />
+							<br/>
 						</div>
 						<div>
 							<Friends />

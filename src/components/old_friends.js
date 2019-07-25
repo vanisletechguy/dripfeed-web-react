@@ -80,8 +80,6 @@ class Friends extends Component {
 										})		
 									}
 								</ul>
-
-
 							</div>
 						:
 							<p></p>

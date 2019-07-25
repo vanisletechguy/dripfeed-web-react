@@ -15,9 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 
-
 class Friends extends Component {
-
 	constructor(props){
 		super(props);
 		this.classes = makeStyles(theme => ({
@@ -37,7 +35,6 @@ class Friends extends Component {
 
 		this.selectFriend = this.selectFriend.bind(this);
 		this.removeFriend = this.removeFriend.bind(this);
-		this.setDense = this.setDense.bind(this);
 	}
 	
 	//when the user clicks a friends name, their posts should display
@@ -45,16 +42,11 @@ class Friends extends Component {
 		this.props.clearPosts();
 		this.props.clearComments();
 		this.props.getPosts(friend.iduser, this.props.token);
-		console.log('clicked');
 	}
 	
 	//remove this user from the current user's friend list
 	removeFriend(friend){
 		//this.props.unFriend(this.props.userId, this.props.token, friend.iduser);
-	}
-
-	setDense(){
-		//return [dense, setDense] = React.useState(false);
 	}
 
 	//this component will display the current user's friend list
@@ -74,10 +66,10 @@ class Friends extends Component {
 								<List>
 									{
 										this.props.friends.map(friend => {
-											
 											const fullName = friend.firstName + ' ' + friend.lastName;
 											return(
-												<ListItem button onClick={e => this.selectFriend(e,friend)}>
+												<ListItem button onClick={e => this.selectFriend(
+													e,friend)}>
 													<ListItemText
 														primary={fullName}/>
 												</ListItem>

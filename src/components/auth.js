@@ -45,19 +45,12 @@ class Auth extends Component {
 		this.submitRegistration = this.submitRegistration.bind(this);
 		this.cancelRegistration = this.cancelRegistration.bind(this);
 		this.register = this.register.bind(this);
-		this.myFeed = this.myFeed.bind(this);
 	}
 
 	//tells the component to display the input objects needed to register 
 	//a new user
 	register(event){
 		this.setState({registering: true});
-	}
-
-	//show the current user a personalized feed constructed by the server
-	myFeed(event){
-		event.preventDefault();
-		this.props.getPosts(this.props.userId, this.props.token);
 	}
 
 	//handles cancelling the registration form
@@ -87,7 +80,8 @@ class Auth extends Component {
 										placeholder="password"/>
 									<div variant="contained" color="primary" 
 										className={this.classes.button}>
-										<Button type="submit">Submit</Button>
+										<Button variant="contained" color="primary" 
+											type="submit">Submit</Button>
 									</div>
 								</form>
 
@@ -101,7 +95,7 @@ class Auth extends Component {
 											<div>Login Failed</div></Typography>
 									: 
 										<Typography variant="h4" className={this.classes.title}>
-											<div>not tried yet</div></Typography>
+											<div></div></Typography>
 								}
 						</div>
 					: 
@@ -110,7 +104,6 @@ class Auth extends Component {
 				{
 					!this.props.loggedIn && this.state.registering ?
 						<form onSubmit={this.submitRegistration}>
-
 							<Typography variant="h4" className={this.classes.title}>
 							Register</Typography>
 							<TextField type="text" className="form-control" 
@@ -140,10 +133,8 @@ class Auth extends Component {
 				{
 					this.props.loggedIn ?
 						<div className="auth">
-
-							<Typography variant="h4" className={this.classes.title}>
+							<Typography variant="h6" className={this.classes.title}>
 							Logged In as: {this.props.email}</Typography>
-							<Button onClick={this.myFeed}>My Feed</Button>
 						</div>
 					: 
 						<div></div>
