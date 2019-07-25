@@ -113,13 +113,15 @@ class AddFriend extends Component {
 										{this.props.newFriend.lastName}
 									{
 										this.resultIsFriend(this.props.newFriend) ?
-											<div className="searchResult">
-												<div>FRIENDS</div>
+											<div>
+												<Button variant="contained" color="primary">
+													Friends</Button>
 											</div>
 										:
-											<div className="searchResult">
-												<Button onClick={(e) => this.addToFriends(
-													e,this.props.newFriend)}>ADD</Button>
+											<div>
+												<Button variant="contained" color="primary" 
+													onClick={(e) => this.addToFriends(e,
+														this.props.newFriend)}>ADD</Button>
 											</div>
 									}								
 									</div>

@@ -14,6 +14,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class Friends extends Component {
 	constructor(props){
@@ -31,6 +32,9 @@ class Friends extends Component {
 			title: {
 				flexGrow: 1,
 			},
+			rightIcon: {
+				marginLeft: theme.spacing(1),
+			},
 		}));
 
 		this.selectFriend = this.selectFriend.bind(this);
@@ -46,7 +50,7 @@ class Friends extends Component {
 	
 	//remove this user from the current user's friend list
 	removeFriend(friend){
-		//this.props.unFriend(this.props.userId, this.props.token, friend.iduser);
+		this.props.unFriend(this.props.userId, this.props.token, friend.iduser);
 	}
 
 	//this component will display the current user's friend list
@@ -68,10 +72,12 @@ class Friends extends Component {
 										this.props.friends.map(friend => {
 											const fullName = friend.firstName + ' ' + friend.lastName;
 											return(
-												<ListItem button onClick={e => this.selectFriend(
-													e,friend)}>
-													<ListItemText
+												<ListItem >
+													<ListItemText button onClick={e => this.selectFriend(
+													e,friend)}
 														primary={fullName}/>
+													<DeleteIcon className={this.classes.rightIcon} 
+														onClick={e => this.removeFriend(friend)}/>
 												</ListItem>
 											);
 										})		
