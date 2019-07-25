@@ -15,6 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Grid from '@material-ui/core/Grid';
 
 class Friends extends Component {
 	constructor(props){
@@ -62,8 +63,10 @@ class Friends extends Component {
 		//const [dense, setDense] = this.setDense();
 		return(
 			<div className={this.classes.root}>
-				<Typography variant="h4" className={this.classes.title}>
-					Friend List</Typography>
+				<Grid container justify = "center">
+					<Typography variant="h4" className={this.classes.title}>
+						Friend List</Typography>
+				</Grid>
 					{
 						this.props.loadedFriends ?
 							<div>

@@ -77,6 +77,8 @@ class AddFriend extends Component {
 	addToFriends(event, newFriend){
 		const friendId = newFriend.iduser;
 		this.props.addFriend(this.props.userId, this.props.token, friendId);
+		this.setState({addingFriend: false});
+
 	}
 
 	render(){

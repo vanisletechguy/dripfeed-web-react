@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid';
 
 
 class Auth extends Component {
@@ -68,8 +69,10 @@ class Auth extends Component {
 					!this.props.loggedIn && !this.state.registering ? 
 						<div className={this.classes.root}>
 								<form onSubmit={this.handleSubmit}>
-									<Typography variant="h4" className={this.classes.title}>
-									Login</Typography>
+									<Grid container justify = "center">
+										<Typography variant="h4" className={this.classes.title}>
+										Login</Typography>
+									</Grid>
 									<TextField type="text" className="form-control" 
 										value={this.state.email} 
 										onChange={this.handleEmailChange} 

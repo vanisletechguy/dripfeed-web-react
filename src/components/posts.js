@@ -12,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
 import Input from '@material-ui/core/Input';
+import Grid from '@material-ui/core/Grid';
 
 
 class Posts extends Component {
@@ -97,7 +98,10 @@ class Posts extends Component {
 			<div className="posts">
 				{
 					this.props.loggedIn && !this.state.newPost? 
-						<Button onClick={e => this.createPost(e)}>New Post</Button>	
+						<Grid container justify = "center">
+							<Button variant="contained" color="primary" onClick={e => 
+								this.createPost(e)}>New Post</Button>	
+						</Grid>
 					:
 						<div></div>
 				}
@@ -148,8 +152,10 @@ class Posts extends Component {
 													<p>{post.description}</p></Typography>
 											</div>
 											<div className="well well-sm comments">
-												<Typography variant="h4" className={this.classes.title}>
-												Comments</Typography>
+												<Grid container justify = "center">
+													<Typography variant="h4" className={this.classes.title}>
+													Comments</Typography>
+												</Grid>
 												<Comments postId={post.postid}/>
 											</div>
 											<p><br/></p>

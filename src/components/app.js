@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu'; 
-
+import Grid from '@material-ui/core/Grid';
 
 export default class App extends Component {
 	constructor(props) {
@@ -25,7 +25,10 @@ export default class App extends Component {
 			},
 			title: {
 				flexGrow: 1,
+				align: 'center',
+				margin: 'auto',
 			},
+
 		}));
 	}
 
@@ -35,8 +38,10 @@ export default class App extends Component {
 				<div className="col-md-12">
 					<AppBar position="static">
 						<Toolbar>
-						  <Typography variant="h6" className={this.classes.title}>
-								DripFeed</Typography>
+							<Grid container justify = "center">
+								<Typography variant="h2" className={this.classes.title}>
+									DripFeed</Typography>
+							</Grid>
 						</Toolbar>
 					</AppBar>
 					<div className="col-md-3 well well-sm leftNav">
@@ -56,7 +61,7 @@ export default class App extends Component {
 							<Friends />
 						</div>
 					</div>
-					<div className="col-md-5 well well-sm posts">
+					<div className="col-md-6 well well-sm posts">
 						<Posts />
 					</div>
 				</div>

@@ -5,8 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import {getPosts} from '../actions/posts';
+import {getMyFeed} from '../actions/posts';
 import {clearComments} from '../actions/comments';
 import {clearPosts} from '../actions/posts';
+import Grid from '@material-ui/core/Grid';
 
 class Navigation extends Component {
 	constructor(props){
@@ -37,6 +39,9 @@ class Navigation extends Component {
 
 	//personallized feed of posts from the users friends
 	myFeed(event){
+		this.props.clearPosts();
+		this.props.clearComments();
+		this.props.getMyFeed(this.props.userId, this.props.token);
 
 	}
 
@@ -50,8 +55,10 @@ class Navigation extends Component {
 	render() {
 		return(
 			<div className="navigation">
-				<Typography variant="h4" className={this.classes.title}>
-				Navigation</Typography>
+				<Grid container justify = "center">
+					<Typography variant="h4" className={this.classes.title}>
+						Navigation</Typography>
+				</Grid>
 				<div className="friendListItem">
 					<Button onClick={e => this.myFeed(e)}>
 						My Feed</Button>	
@@ -71,5 +78,5 @@ function mapStateToProps(state){
 		token: state.auth.token
 	};
 }
-export default connect(mapStateToProps, {getPosts, clearPosts, 
+export default connect(mapStateToProps, {getPosts, getMyFeed, clearPosts, 
 	clearComments})(Navigation);

@@ -12,9 +12,20 @@ export function getPosts(userId, token){
 	return fetchPosts(userId, token);
 }
 
+export function getMyFeed(userId, token) {
+	return fetchMyFeed(userId, token);
+}
+
 function fetchPosts(userId, token){
 	return function(dispatch) {
 		return fetchPostsJSON(userId, token).then(json => dispatch(
+			recievePosts(json, userId, token)));
+	}
+}
+
+function fetchMyFeed(userId, token){
+	return function(dispatch) {
+		return fetchMyFeedJSON(userId, token).then(json => dispatch(
 			recievePosts(json, userId, token)));
 	}
 }
@@ -36,6 +47,17 @@ function recievePosts(json, userId, token){
 			type: RECIEVE_POSTS,
 			posts	
 		};
+}
+
+function fetchMyFeedJSON(userId, token){
+	return fetch('http://18.188.180.75:3131/api/myFeed', {
+		method: 'get',
+		headers: new Headers({
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'userid': userId,
+			'token': token
+		}),
+	}).then(response => response.json());
 }
 
 //Clear Posts/////////////////////
