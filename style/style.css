@@ -34,8 +34,9 @@ body {
 }
 
 .posts{
-	background-color: #F2F09D;
 	color: black;
+	background: radial-gradient(#B3D3B1, #7DB293);
+
 }
 .noPosts{
 	border-radius: 0px;
@@ -44,7 +45,8 @@ body {
 }
 
 .postItem{
-	background-color: #A2C1DA;
+	background: radial-gradient(#B3D3B1, #7DB293);
+
 	display: block;
 	height: 95%;
 	width: 95%;
@@ -52,6 +54,8 @@ body {
 	margin-right: auto;
 	margin-top: 5px;
 	position: relative;
+	border-radius: 25px;
+
 }
 
 .postImage{
@@ -121,7 +125,7 @@ img{
 }
 
 .well{
-	border-radius: 25px;
+	border-radius: 0px;
 	border: none;
 	background: radial-gradient(#A2C1DA, #7DB293);
 	box-shadow: 2px 2px 4px 5px #7DB293;

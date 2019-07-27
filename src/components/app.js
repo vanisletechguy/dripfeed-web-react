@@ -35,7 +35,8 @@ export default class App extends Component {
   render() {
     return (
 		 <div className={this.classes.root}>
-				<div className="col-md-12">
+			 <Grid container spacing={1}>
+				 <Grid item xs={12}>
 					<AppBar position="static">
 						<Toolbar>
 							<Grid container justify = "center">
@@ -44,28 +45,29 @@ export default class App extends Component {
 							</Grid>
 						</Toolbar>
 					</AppBar>
-					<div className="col-md-3 well well-sm leftNav">
-						<div>
-							<Auth />
-							<br/>
-						</div>
-						<div>
-							<Navigation />
-							<br/>
-						</div>
-						<div>
-							<AddFriend />
-							<br/>
-						</div>
-						<div>
-							<Friends />
-						</div>
+				</Grid>
+				<Grid item xs={3} className="well well-sm leftNav">
+					<div>
+						<Auth />
+						<br/>
 					</div>
-					<div className="col-md-6 well well-sm posts">
-						<Posts />
+					<div>
+						<Navigation />
+						<br/>
 					</div>
-				</div>
-			</div>
-    );
+					<div>
+						<AddFriend />
+						<br/>
+					</div>
+					<div>
+						<Friends />
+					</div>
+				</Grid>
+				<Grid item xs={6} className="well well-sm posts">
+					<Posts />
+				</Grid>
+			</Grid>
+		</div>
+		);
   }
 }

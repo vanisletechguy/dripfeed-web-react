@@ -98,7 +98,7 @@ class Comments extends Component{
 							this.state.comments.map(comment => {
 									if(comment.postid === this.props.postId){
 										return (
-											<div className="well well-sm" key={comment.commentid}>
+											<div className="" key={comment.commentid}>
 												<ListItem>
 													<Typography variant="h6" 
 														className={this.classes.title}>

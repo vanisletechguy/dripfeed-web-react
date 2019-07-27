@@ -100,10 +100,21 @@ class Posts extends Component {
 			<div className="posts">
 				{
 					this.props.loggedIn && !this.state.newPost? 
-						<Grid container justify = "center">
-							<Button variant="contained" color="primary" onClick={e => 
-								this.createPost(e)}>New Post</Button>	
-						</Grid>
+						<Card>
+							<CardContent>
+								<div className="postItem">
+									<br/>
+									<div className="">
+										<Typography variant="h6" className={this.classes.title}>
+											Share something special with your friends!</Typography>
+
+										<Button variant="contained" color="primary" onClick={e => 
+											this.createPost(e)}>New Post</Button>	
+									</div>
+									<br/>
+								</div>
+							</CardContent>
+						</Card>
 					:
 						<div></div>
 				}
@@ -111,8 +122,9 @@ class Posts extends Component {
 					this.state.newPost ?
 						<Card>
 							<CardContent>
-								<div className="newPost ">
-									<div className="newPostWrapper well well-sm">
+								<div className="postItem">
+									<br/>
+									<div className="newPostWrapper">
 										<Typography variant="h4" className={this.classes.title}>
 											New Post</Typography>
 										<form onSubmit={this.handleSubmit}>
@@ -134,6 +146,7 @@ class Posts extends Component {
 												Submit</Button>
 										</form>
 									</div>
+									<br/>
 								</div>
 							</CardContent>	
 						</Card>
@@ -147,24 +160,24 @@ class Posts extends Component {
 							{
 								this.props.posts.map(post => {
 									return(
-										<Card>
+										<Card raised='true'>
 											<CardContent>
 												<div key={post.postid} className="postItem">
 													{
 														post &&	post.imageURI ?
-															<div className="postImage well well-sm"> 
+															<div className="postImage"> 
 																<img src={post.imageURI}/> 
 															</div>
 															:
 															<div></div>
 													}
-													<div className="well well-sm postText">
+													<div className="postText">
 														<Typography variant="h4" className={this.classes.title}>
 														{post.title}</Typography>
 														<Typography variant="h6" className={this.classes.title}>
 															<p>{post.description}</p></Typography>
 													</div>
-													<div className="well well-sm comments">
+													<div className="comments">
 														<Grid container justify = "center">
 															<Typography variant="h4" className={this.classes.title}>
 															Comments</Typography>
