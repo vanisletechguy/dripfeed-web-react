@@ -7,6 +7,8 @@ export const S3_SUCCESS = 'S3_SUCCESS';
 export const S3_FAIL = 'S3_FAIL';
 export const CLEAR_POSTS = 'CLEAR_POSTS';
 
+const API_URL = 'http://18.188.180.75:3131';
+
 //Get Posts/////////////////////
 export function getPosts(userId, token){
 	return fetchPosts(userId, token);
@@ -31,7 +33,7 @@ function fetchMyFeed(userId, token){
 }
 
 function fetchPostsJSON(userId, token){
-	return fetch('http://18.188.180.75:3131/api/posts', {
+	return fetch(API_URL + '/api/posts', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -50,7 +52,7 @@ function recievePosts(json, userId, token){
 }
 
 function fetchMyFeedJSON(userId, token){
-	return fetch('http://18.188.180.75:3131/api/myFeed', {
+	return fetch(API_URL + '/api/myFeed', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -81,7 +83,7 @@ function submit(userId, token, post){
 }
 
 function submitPostJSON(userId, token, post){
-	return fetch('http://18.188.180.75:3131/api/upload', {
+	return fetch(API_URL + '/api/upload', {
 		method: 'post',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -117,7 +119,7 @@ function submitPic(newPicture, token){
 }
 
 function getSignedURLRequest(newPicture, token) {
-	return	fetch('http://18.188.180.75:3131/api/sign-s3', {
+	return	fetch(API_URL + '/api/sign-s3', {
 		method: 'get',
 		headers: new Headers({
 			'contentType': "text/plain",

@@ -5,9 +5,11 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 export const REG_RESPONSE = 'REG_RESPONSE';
 
+const API_URL = 'http://18.188.180.75:3131';
+
 //login ///////////////////
 function fetchTokenJSON(payload) {
-	return fetch('http://18.188.180.75:3131/api/login', { 
+	return fetch(API_URL + '/api/login', { 
 		 method: 'GET', 
 		 headers: new Headers({
 			 'Authorization': 'Basic '+btoa('username:password'), 
@@ -56,7 +58,7 @@ function tellServerLogout(payload){
 
 
 function sendLogoutRequest(payload) {
-	return fetch('http://18.188.180.75:3131/api/logout', { 
+	return fetch(API_URL + '/api/logout', { 
 		 method: 'PUT', 
 		 headers: new Headers({
 			 'Authorization': 'Basic '+btoa('username:password'), 
@@ -88,7 +90,7 @@ export function registerUser(userInfo){
 }
 
 function registerJSON(userInfo){
-	return fetch('http://18.188.180.75:3131/api/register', { 
+	return fetch(API_URL + '/api/register', { 
 		method: 'post',
 		headers: new Headers({
 	 'Authorization': 'Basic '+btoa('username:password'), 

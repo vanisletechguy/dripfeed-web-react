@@ -4,6 +4,8 @@ export const POST_RESPONSE = 'POST_RESPONSE';
 export const COMMENT_RESPONSE = 'COMMENT_RESPONSE';
 export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
 
+const API_URL = 'http://18.188.180.75:3131';
+
 export function getComments(userid, token, postId){
 	return fetchComments(userid, token, postId);
 }
@@ -16,7 +18,7 @@ function fetchComments(userid, token, postId){
 }
 
 function fetchCommentsJSON(userid, token, postId){
-	return fetch('http://18.188.180.75:3131/api/comments', {
+	return fetch(API_URL + '/api/comments', {
 		method: 'get',
 		headers: new Headers({
 			'Content-Type': 'application/x-www-form-urlencoded',
@@ -53,7 +55,7 @@ function submit(userId, token, postId, text){
 }
 
 function submitCommentJSON(userId, token, postId, text) {
-	return fetch('http://18.188.180.75:3131/api/comments', {
+	return fetch(API_URL + '/api/comments', {
 		method: 'put',
 		headers: new Headers({
 		'Content-Type': 'application/x-www-form-urlencoded',

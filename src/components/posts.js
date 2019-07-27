@@ -124,7 +124,7 @@ class Posts extends Component {
 							<CardContent>
 								<div className="postItem">
 									<br/>
-									<div className="newPostWrapper">
+									<div className="">
 										<Typography variant="h4" className={this.classes.title}>
 											New Post</Typography>
 										<form onSubmit={this.handleSubmit}>
@@ -172,15 +172,16 @@ class Posts extends Component {
 															<div></div>
 													}
 													<div className="postText">
-														<Typography variant="h4" className={this.classes.title}>
-														{post.title}</Typography>
-														<Typography variant="h6" className={this.classes.title}>
-															<p>{post.description}</p></Typography>
+														<Typography variant="h4" className={
+															this.classes.title}>{post.title}</Typography>
+														<Typography variant="h6" className={
+															this.classes.title}><p>{post.description}</p>
+														</Typography>
 													</div>
 													<div className="comments">
 														<Grid container justify = "center">
-															<Typography variant="h4" className={this.classes.title}>
-															Comments</Typography>
+															<Typography variant="h4" className={
+																this.classes.title}>Comments</Typography>
 														</Grid>
 														<Comments postId={post.postid}/>
 													</div>

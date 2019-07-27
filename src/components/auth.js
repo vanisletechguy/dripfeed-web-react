@@ -75,8 +75,6 @@ class Auth extends Component {
 		this.props.logout(payload).then(this.setState({email: ''}));
 		this.props.clearPosts();
 		this.props.clearComments();
-
-
 	}
 
 	//this component displays a form for the user to login with a username and 
@@ -95,10 +93,12 @@ class Auth extends Component {
 									</Grid>
 									<TextField type="text" className={this.classes.input} 
 										value={this.state.email} onChange={this.handleEmailChange} 
-										margin="normal"	variant="filled" fullWidth placeholder="email"/>
+										margin="normal"	variant="filled" fullWidth 
+										placeholder="email"/>
 									<TextField type="password" className={this.classes.input} 
 										value={this.state.password}	onChange={this.handlePassChange} 
-										margin="normal" variant="filled" fullWidth placeholder="password"/>
+										margin="normal" variant="filled" fullWidth 
+										placeholder="password"/>
 									<div variant="contained" color="primary" 
 										className={this.classes.button}>
 										<Button variant="contained" color="primary"	className={
@@ -163,8 +163,8 @@ class Auth extends Component {
 						<div className="auth">
 							<Typography variant="h6" className={this.classes.title}>
 								Logged In as: {this.props.email}</Typography>
-							<Button variant="contained" color="primary" onClick={e => this.logout(e)}
-								>Logout</Button>
+							<Button variant="contained" color="primary" 
+								onClick={e => this.logout(e)}>Logout</Button>
 						</div>
 					: 
 						<div></div>
