@@ -10,12 +10,26 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'; 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { withStyles } from '@material-ui/core';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
+
+
+const StyledListItem = withStyles({
+	root: {
+		backgroundColor: '#B3D3B1', 
+		"&:hover": {
+			backgroundColor: '#F2F09D',
+			cursor: 'pointer',
+		}
+	},
+	selected: {}
+})(ListItem);
+
 
 class Friends extends Component {
 	constructor(props){
@@ -75,13 +89,12 @@ class Friends extends Component {
 										this.props.friends.map(friend => {
 											const fullName = friend.firstName + ' ' + friend.lastName;
 											return(
-												<ListItem >
+												<StyledListItem className={this.classes.friendList}>
 													<ListItemText button onClick={e => this.selectFriend(
-													e,friend)}
-														primary={fullName}/>
+													e,friend)} primary={fullName}/>
 													<DeleteIcon className={this.classes.rightIcon} 
 														onClick={e => this.removeFriend(friend)}/>
-												</ListItem>
+												</StyledListItem>
 											);
 										})		
 									}

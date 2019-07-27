@@ -13,7 +13,9 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
-
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 class Posts extends Component {
 	constructor(props){
@@ -107,28 +109,37 @@ class Posts extends Component {
 				}
 				{
 					this.state.newPost ?
-						<div className="newPost ">
-							<Typography variant="h4" className={this.classes.title}>
-								New Post</Typography>
-							<div className="newPostWrapper well well-sm">
-							<form onSubmit={this.handleSubmit}>
-								<TextField type="text" className="form-control" 
-									value={this.state.newTitle} 
-									onChange={this.titleChange} placeholder="Post Title"/>
-								<TextField type="text" value={this.state.newDescription} 
-									onChange={this.descriptionChange} placeholder="Text" 
-									className="newPostText"/>
-								<Input type="file" onChange={this.fileChangedHandler}/>
-								<br/>
-								<Button type="submit">Submit</Button>
-								<Button variant="contained" color="primary" 
-									onClick={e => this.cancelNewPost()}>Cancel</Button>
+						<Card>
+							<CardContent>
+								<div className="newPost ">
+									<div className="newPostWrapper well well-sm">
+										<Typography variant="h4" className={this.classes.title}>
+											New Post</Typography>
+										<form onSubmit={this.handleSubmit}>
+											<TextField type="text" className="" 
+												value={this.state.newTitle} 
+												variant="filled" fullWidth
+												onChange={this.titleChange} placeholder="Post Title"/>
+											<TextField type="text" value={this.state.newDescription} 
+												variant="filled" fullWidth
+												onChange={this.descriptionChange} placeholder="Text" 
+												multiline={true}	rowsMax="4"	className=""/>
+											<br/>
+											<Input type="file" onChange={this.fileChangedHandler}/>
+											<br/>
+											<Button variant="contained" color="primary" 
+												onClick={e => this.cancelNewPost()}>Cancel</Button>
+											{'    '}
+											<Button variant="contained" color="primary" type="submit">
+												Submit</Button>
+										</form>
+									</div>
+								</div>
+							</CardContent>	
+						</Card>
 
-							</form>
-							</div>
-						</div>
 					:
-						<div></div>
+						<span></span>
 				}
 				{
 					this.props.posts && this.props.posts[0] ?
@@ -136,36 +147,40 @@ class Posts extends Component {
 							{
 								this.props.posts.map(post => {
 									return(
-										<div key={post.postid} className="postItem">
-											{
-												post &&	post.imageURI ?
-													<div className="postImage well well-sm"> 
-														<img src={post.imageURI}/> 
+										<Card>
+											<CardContent>
+												<div key={post.postid} className="postItem">
+													{
+														post &&	post.imageURI ?
+															<div className="postImage well well-sm"> 
+																<img src={post.imageURI}/> 
+															</div>
+															:
+															<div></div>
+													}
+													<div className="well well-sm postText">
+														<Typography variant="h4" className={this.classes.title}>
+														{post.title}</Typography>
+														<Typography variant="h6" className={this.classes.title}>
+															<p>{post.description}</p></Typography>
 													</div>
-													:
-													<div></div>
-											}
-											<div className="well well-sm postText">
-												<Typography variant="h4" className={this.classes.title}>
-												{post.title}</Typography>
-												<Typography variant="h6" className={this.classes.title}>
-													<p>{post.description}</p></Typography>
-											</div>
-											<div className="well well-sm comments">
-												<Grid container justify = "center">
-													<Typography variant="h4" className={this.classes.title}>
-													Comments</Typography>
-												</Grid>
-												<Comments postId={post.postid}/>
-											</div>
-											<p><br/></p>
-										</div>
+													<div className="well well-sm comments">
+														<Grid container justify = "center">
+															<Typography variant="h4" className={this.classes.title}>
+															Comments</Typography>
+														</Grid>
+														<Comments postId={post.postid}/>
+													</div>
+													<p><br/></p>
+												</div>
+											</CardContent>
+										</Card>
 									);
 								})
 							}
 						</div>
 						:
-							<p>...</p>
+							<div className="noPosts"></div>
 				}
 			</div>
 		);

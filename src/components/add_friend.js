@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
+import Grid from '@material-ui/core/Grid';
 
 
 class AddFriend extends Component {
@@ -25,6 +26,14 @@ class AddFriend extends Component {
 			},
 			title: {
 				flexGrow: 1,
+			},
+			friendName: {
+				spacing: 'ml',
+				marginLeft: 'auto',
+			},
+			deleteIcon: {
+				spacing: 'mr',
+				marginRight: 'auto',
 			},
 		}));
 
@@ -85,56 +94,65 @@ class AddFriend extends Component {
 		if(this.props.loggedIn && this.props.token){
 			return(
 				<div>
-					<Button variant="contained" color="primary" 
-						onClick={this.addFriend}>Add friends</Button>
-					{
+				{
 					this.state.addingFriend ?
 						<div>
 							<form onSubmit={this.searchFriend}>
-								<TextField type="text" className="form-control" 
+								<TextField type="text" className="" 
 									value={this.state.firstName} 
 									onChange={this.handleFirstNameChanged} 
+									variant="filled" fullWidth
 									placeholder="first name"/>	
-								<TextField type="text" className="form-control" 
+								<TextField type="text" className="" 
 									value={this.state.lastName} 
 									onChange={this.handleLastNameChanged} 
+									variant="filled" fullWidth
 									placeholder="last name"/>	
-								<Button variant="contained" color="primary" type="submit">
-									Submit</Button>
-								<Button variant="contained" color="primary" 
-									onClick={e => this.cancelAddFriend()}>Cancel</Button>
+									<Button variant="contained" color="primary" 
+										onClick={e => this.cancelAddFriend()}>Cancel</Button>
+									{'  '}
+									<Button variant="contained" color="primary" type="submit">
+										Submit</Button>
+									<br/>
 							</form>
 						{
 							this.props.newFriend ?
 								<div className="well well-sm">
-									<Typography variant="h4" className={this.classes.title}>
-									Search Result</Typography>
-									<Typography variant="h6" className={this.classes.title}>
-									<div>
-										{this.props.newFriend.firstName}
-										{this.props.newFriend.lastName}
-									{
-										this.resultIsFriend(this.props.newFriend) ?
-											<div>
-												<Button variant="contained" color="primary">
-													Friends</Button>
-											</div>
-										:
-											<div>
-												<Button variant="contained" color="primary" 
-													onClick={(e) => this.addToFriends(e,
-														this.props.newFriend)}>ADD</Button>
-											</div>
-									}								
-									</div>
-									</Typography>
+									<Grid container justify = "center">
+										<Typography variant="h4" className={this.classes.title}>
+										Search Result</Typography>
+									</Grid>
+									<br/>
+									<Grid container justify="space-between" spacing={5}>
+											<Grid item className="friendName">
+												<Typography variant="h6">
+													{this.props.newFriend.firstName}
+													{this.props.newFriend.lastName}
+												</Typography>
+											</Grid>
+										{
+											this.resultIsFriend(this.props.newFriend) ?
+												<Grid item className="deleteIcon">
+													<Button variant="contained" color="primary">
+														Friends</Button>
+												</Grid>
+											:
+												<Grid item>
+													<Button variant="contained" color="primary" 
+														onClick={(e) => this.addToFriends(e,
+															this.props.newFriend)}>ADD</Button>
+												</Grid>
+										}								
+									</Grid>
 								</div>
 							:
 								<div></div>
 						}
 						</div>
 					:
-						<div></div>
+						<Button variant="contained" color="primary" 
+							onClick={this.addFriend}>Add friends</Button>
+
 					}
 				</div>
 			);

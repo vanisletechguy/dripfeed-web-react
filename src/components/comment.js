@@ -16,7 +16,6 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 
 
-
 class Comments extends Component{
 	constructor(props){
 		super(props);
@@ -115,24 +114,27 @@ class Comments extends Component{
 							<p></p>
 					}
 				</List>
-				<Button variant="contained" color="primary" onClick={e => 
-					this.makeComment(e)}>New Comment</Button>	
 				{
 					this.state.makingComment ?
 						<div>
 							<Typography variant="h4" className={this.classes.title}>
 								Submit Your Comment</Typography>
 							<form onSubmit={this.submitComment}>
-								<textarea value={this.state.newComment} 
-									onChange={this.commentChanged} className="newPostText"/>
-								<Button variant="contained" color="primary" type="submit">
-									Submit</Button>
+								<TextField value={this.state.newComment} 
+									variant="filled" fullWidth
+									onChange={this.commentChanged} className=""/>
 								<Button variant="contained" color="primary" 
 									onClick={e => this.cancelMakeComment()}>Cancel</Button>
+								{'    '}
+								<Button variant="contained" color="primary" type="submit">
+									Submit</Button>
 							</form>
 						</div>
 					:
-						<div></div>
+						<div>
+							<Button variant="contained" color="primary" onClick={e => 
+								this.makeComment(e)}>New Comment</Button>	
+						</div>
 				}
 			</div>
 		);

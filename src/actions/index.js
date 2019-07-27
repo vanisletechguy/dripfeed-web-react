@@ -1,6 +1,8 @@
 export const LOGIN = 'LOGIN'; 
+export const LOGOUT = 'LOGOUT';
 export const RECIEVED_TOKEN =  'RECIEVED_TOKEN';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 export const REG_RESPONSE = 'REG_RESPONSE';
 
 //login ///////////////////
@@ -41,6 +43,45 @@ function recieveToken(json){
 export function login(payload){
 	return fetchToken(payload);
 }
+
+export function logout(payload){
+	return tellServerLogout(payload);
+}
+
+function tellServerLogout(payload){
+	return function(dispatch) {
+		return sendLogoutRequest(payload).then(json => dispatch(logoutResponse(json)));
+	}
+}
+
+
+function sendLogoutRequest(payload) {
+	return fetch('http://18.188.180.75:3131/api/logout', { 
+		 method: 'PUT', 
+		 headers: new Headers({
+			 'Authorization': 'Basic '+btoa('username:password'), 
+			 'Content-Type': 'application/x-www-form-urlencoded',
+			 'userid' : payload.userId,
+			 'token' : payload.token 
+		 }) 
+	 }).then(response => response.json());
+}
+
+function logoutResponse(json){
+	var token = json; ///check for err
+	console.log('the logout json response was: ', json);
+	if(!json.success){
+		return {
+			type: LOGOUT_FAILED,
+		}
+	} else {
+		return{
+				type: LOGOUT,
+				loggedIn: false,
+			}
+	}
+}
+
 //register user///////////////
 export function registerUser(userInfo){
 	return callRegisterUser(userInfo);

@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {login} from '../actions';
+import {logout} from '../actions';
 import {registerUser} from '../actions';
 import {getPosts} from '../actions/posts';
+import {clearPosts} from '../actions/posts';
+import {clearComments} from '../actions/comments';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'; 
@@ -23,7 +26,8 @@ class Auth extends Component {
 				margin: theme.spacing(1),
 			},
 			input: {
-				display: 'none',
+				backgroundColor: 'white',
+				background: 'blue',
 			},
 			title: {
 				flexGrow: 1,
@@ -46,17 +50,33 @@ class Auth extends Component {
 		this.submitRegistration = this.submitRegistration.bind(this);
 		this.cancelRegistration = this.cancelRegistration.bind(this);
 		this.register = this.register.bind(this);
+		this.logout = this.logout.bind(this);
 	}
 
 	//tells the component to display the input objects needed to register 
 	//a new user
-	register(event){
+	register(e){
 		this.setState({registering: true});
 	}
 
 	//handles cancelling the registration form
-	cancelRegistration(event){
+	cancelRegistration(e){
 		this.setState({registering: false});
+	}
+
+	logout(e){
+		e.preventDefault();
+		console.log('userId: ', this.props.userId);
+		console.log('token: ', this.props.token);
+		console.log('state: ', this.state);
+		console.log('props: ', this.props);
+		const payload =	{ userid: this.props.userId, token: this.props.token};
+		console.log('payload is:' , payload);
+		this.props.logout(payload).then(this.setState({email: ''}));
+		this.props.clearPosts();
+		this.props.clearComments();
+
+
 	}
 
 	//this component displays a form for the user to login with a username and 
@@ -73,25 +93,23 @@ class Auth extends Component {
 										<Typography variant="h4" className={this.classes.title}>
 										Login</Typography>
 									</Grid>
-									<TextField type="text" className="form-control" 
-										value={this.state.email} 
-										onChange={this.handleEmailChange} 
-										placeholder="email"/>
-									<TextField type="password" className="form-control" 
-										value={this.state.password} 
-										onChange={this.handlePassChange} 
-										placeholder="password"/>
+									<TextField type="text" className={this.classes.input} 
+										value={this.state.email} onChange={this.handleEmailChange} 
+										margin="normal"	variant="filled" fullWidth placeholder="email"/>
+									<TextField type="password" className={this.classes.input} 
+										value={this.state.password}	onChange={this.handlePassChange} 
+										margin="normal" variant="filled" fullWidth placeholder="password"/>
 									<div variant="contained" color="primary" 
 										className={this.classes.button}>
+										<Button variant="contained" color="primary"	className={
+											this.classes.button} onClick={this.register}>
+											Register</Button>
+										{'   '}
 										<Button variant="contained" color="primary" 
 											type="submit">Submit</Button>
 									</div>
 								</form>
 
-								<Button variant="contained" color="primary" 
-									className={this.classes.button} onClick={this.register}>
-									Register
-								</Button>
 								{
 									this.props.loginAttempted ?  
 										<Typography variant="h4" className={this.classes.title}>
@@ -109,25 +127,32 @@ class Auth extends Component {
 						<form onSubmit={this.submitRegistration}>
 							<Typography variant="h4" className={this.classes.title}>
 							Register</Typography>
-							<TextField type="text" className="form-control" 
+							<TextField type="text" className={this.classes.input} 
 								value={this.state.firstName} 
 								onChange={this.handleFirstNameChange} 
+								variant="filled" fullWidth
 								placeholder="First Name"/>
-							<TextField type="text" className="form-control" 
+							<TextField type="text" className={this.classes.input}
 								value={this.state.lastName} 
 								onChange={this.handleLastNameChange} 
+								variant="filled" fullWidth
 								placeholder="Last Name"/>
-							<TextField type="password" className="form-control" 
+							<TextField type="password" className={this.classes.input} 
 								value={this.state.password} 
 								onChange={this.handlePassChange} 
+								variant="filled" fullWidth
 								placeholder="password"/>
-							<TextField type="text" className="form-control" 
+							<TextField type="text" className={this.classes.input} 
 								value={this.state.email} 
 								onChange={this.handleEmailChange} 
+								variant="filled" fullWidth
 								placeholder="email address"/>
 							<div className="authButtons">
-								<Button type="submit">Submit</Button>
-								<Button onClick={this.cancelRegistration}>Cancel</Button>
+								<Button variant="contained" color="primary" onClick={
+									this.cancelRegistration}>Cancel</Button>
+								{'    '}
+								<Button variant="contained" color="primary" type="submit">
+									Submit</Button>
 							</div>
 						</form>
 					: 
@@ -137,7 +162,9 @@ class Auth extends Component {
 					this.props.loggedIn ?
 						<div className="auth">
 							<Typography variant="h6" className={this.classes.title}>
-							Logged In as: {this.props.email}</Typography>
+								Logged In as: {this.props.email}</Typography>
+							<Button variant="contained" color="primary" onClick={e => this.logout(e)}
+								>Logout</Button>
 						</div>
 					: 
 						<div></div>
@@ -200,4 +227,5 @@ function mapStateToProps(state){
 	};
 }
 
-export default connect(mapStateToProps, {login, registerUser,getPosts} )(Auth);
+export default connect(mapStateToProps, {login, logout, registerUser,
+	getPosts, clearPosts, clearComments})(Auth);
