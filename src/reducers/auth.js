@@ -10,7 +10,6 @@ export default function auth(state={}, action){
 		case LOGIN: 
 			return state;	
 		case LOGOUT:
-			console.log('logout reducer');
 			return state = {loggedIn: false};
 		case RECIEVED_TOKEN:
 			state = {};

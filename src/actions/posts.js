@@ -7,7 +7,7 @@ export const S3_SUCCESS = 'S3_SUCCESS';
 export const S3_FAIL = 'S3_FAIL';
 export const CLEAR_POSTS = 'CLEAR_POSTS';
 
-const API_URL = 'http://18.188.180.75:3131';
+const API_URL = 'http://3.16.112.17:3131';
 
 //Get Posts/////////////////////
 export function getPosts(userId, token){
@@ -67,7 +67,6 @@ export function clearPosts(){
 	return {
 		type: CLEAR_POSTS
 	};
-	
 }
 
 //Submit Post/////////////////////
@@ -138,7 +137,6 @@ function sendToS3JSON(json, newPicture) {
 	xhr.onreadystatechange = () => {
 	  if(xhr.readyState === 4){
 			if(xhr.status === 200){
-				console.log('upload was sucessful');
 				return {
 					type: S3_SUCCESS,
 					url: signedURL
@@ -162,7 +160,6 @@ function sendToS3JSON(json, newPicture) {
 
 function s3Response(Response = ''){
 	var response = Response;
-	console.log('s3 responded with: ', response);
 	return{
 		type: S3_RESPONSE,
 		response

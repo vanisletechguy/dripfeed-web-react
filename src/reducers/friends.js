@@ -31,7 +31,7 @@ export default function friends(state={}, action){
 			}
 			return state;
 		case SEARCH_RESULT:
-			if(action.result.friends[0]){ ////allow multiple
+			if(action.result.friends[0]){ ////should allow multiple
 				return {...state, newFriend: action.result.friends[0]}
 			}
 			return state;

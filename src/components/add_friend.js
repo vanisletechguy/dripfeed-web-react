@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid';
 
-
 class AddFriend extends Component {
 	constructor(props){
 		super(props);
@@ -41,7 +40,7 @@ class AddFriend extends Component {
 			firstName: '',
 			lastName: '',
 			addingFriend: false
-		}
+		};
 		this.addFriend = this.addFriend.bind(this);
 		this.cancelAddFriend = this.cancelAddFriend.bind(this);
 		this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
@@ -99,11 +98,6 @@ class AddFriend extends Component {
 						<div>
 							<form onSubmit={this.searchFriend}>
 								<TextField type="text" className="" 
-									value={this.state.firstName} 
-									onChange={this.handleFirstNameChanged} 
-									variant="filled" fullWidth
-									placeholder="first name"/>	
-								<TextField type="text" className="" 
 									value={this.state.lastName} 
 									onChange={this.handleLastNameChanged} 
 									variant="filled" fullWidth
@@ -117,7 +111,7 @@ class AddFriend extends Component {
 							</form>
 						{
 							this.props.newFriend ?
-								<div className="well well-sm">
+								<div className="">
 									<Grid container justify = "center">
 										<Typography variant="h4" className={this.classes.title}>
 										Search Result</Typography>

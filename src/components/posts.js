@@ -107,7 +107,6 @@ class Posts extends Component {
 									<div className="">
 										<Typography variant="h6" className={this.classes.title}>
 											Share something special with your friends!</Typography>
-
 										<Button variant="contained" color="primary" onClick={e => 
 											this.createPost(e)}>New Post</Button>	
 									</div>

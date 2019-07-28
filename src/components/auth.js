@@ -14,7 +14,6 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid';
 
-
 class Auth extends Component {
 	constructor(props) {
 		super(props);
@@ -41,7 +40,6 @@ class Auth extends Component {
 			email: '',
 			registering: false
 		};
-
 		this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
 		this.handleLastNameChange = this.handleLastNameChange.bind(this);
 		this.handlePassChange = this.handlePassChange.bind(this);
@@ -66,12 +64,7 @@ class Auth extends Component {
 
 	logout(e){
 		e.preventDefault();
-		console.log('userId: ', this.props.userId);
-		console.log('token: ', this.props.token);
-		console.log('state: ', this.state);
-		console.log('props: ', this.props);
 		const payload =	{ userid: this.props.userId, token: this.props.token};
-		console.log('payload is:' , payload);
 		this.props.logout(payload).then(this.setState({email: ''}));
 		this.props.clearPosts();
 		this.props.clearComments();

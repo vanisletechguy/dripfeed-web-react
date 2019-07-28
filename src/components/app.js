@@ -31,10 +31,10 @@ export default class App extends Component {
 		}));
 	}
 
-  render() {
+	render() {
     return (
-		 <div className={this.classes.root}>
-			 <Grid container spacing={1}>
+			<div className={this.classes.root}>
+				<Grid container spacing={1}>
 				 <Grid item xs={12}>
 					<AppBar position="static">
 						<Toolbar>
@@ -45,7 +45,7 @@ export default class App extends Component {
 						</Toolbar>
 					</AppBar>
 				</Grid>
-				<Grid item xs={3} className="well well-sm leftNav">
+				<Grid item xs={3} className="leftNav">
 					<div>
 						<Auth />
 						<br/>
@@ -62,7 +62,7 @@ export default class App extends Component {
 						<Friends />
 					</div>
 				</Grid>
-				<Grid item xs={6} className="well well-sm posts">
+				<Grid item xs={6} className="posts">
 					<Posts />
 				</Grid>
 			</Grid>

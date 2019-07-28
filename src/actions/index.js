@@ -5,7 +5,7 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 export const REG_RESPONSE = 'REG_RESPONSE';
 
-const API_URL = 'http://18.188.180.75:3131';
+const API_URL = 'http://3.16.112.17:3131';
 
 //login ///////////////////
 function fetchTokenJSON(payload) {
@@ -56,7 +56,6 @@ function tellServerLogout(payload){
 	}
 }
 
-
 function sendLogoutRequest(payload) {
 	return fetch(API_URL + '/api/logout', { 
 		 method: 'PUT', 
@@ -71,7 +70,6 @@ function sendLogoutRequest(payload) {
 
 function logoutResponse(json){
 	var token = json; ///check for err
-	console.log('the logout json response was: ', json);
 	if(!json.success){
 		return {
 			type: LOGOUT_FAILED,

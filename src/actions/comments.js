@@ -4,7 +4,7 @@ export const POST_RESPONSE = 'POST_RESPONSE';
 export const COMMENT_RESPONSE = 'COMMENT_RESPONSE';
 export const CLEAR_COMMENTS = 'CLEAR_COMMENTS';
 
-const API_URL = 'http://18.188.180.75:3131';
+const API_URL = 'http://3.16.112.17:3131';
 
 export function getComments(userid, token, postId){
 	return fetchComments(userid, token, postId);

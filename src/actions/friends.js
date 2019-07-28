@@ -4,7 +4,7 @@ export const SEARCH_RESULT = 'SEARCH_RESULT';
 export const UNFRIEND_RESPONSE = 'UNFRIEND_RESPONSE';
 export const ADD_FRIEND_RESPONSE = 'ADD_FRIEND_RESPONSE';
 
-const API_URL = 'http://18.188.180.75:3131';
+const API_URL = 'http://3.16.112.17:3131';
 
 //GET FRIENDS LIST/////////
 export function getFriends(userid, token){

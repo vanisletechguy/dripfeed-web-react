@@ -9,11 +9,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'; 
 
-
 const [dense, setDense] = React.useState(false);
 
 class Friends extends Component {
-
 	constructor(props){
 		super(props);
 		this.classes = makeStyles(theme => ({
